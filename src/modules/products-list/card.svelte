@@ -11,10 +11,8 @@
 		Figure,
 		Image,
 	} from 'sveltestrap'
-	import './card.scss'
 	export let product
 	let key
-
 	console.log('d2381038210')
 </script>
 
@@ -47,5 +45,8 @@
 	</CardBody>
 </Card>
 
-<style>
+<style lang="scss">
+	:global(.px-card-subtitle) {
+		background: red;
+	}
 </style>
