@@ -1,0 +1,17 @@
+ [
+    {
+        "couponCode": "TESTCOUPONCODE1",
+        "discountPercent": 5,
+        "description": "COUPON DESCRIPTION"
+    },
+    {
+        "couponCode": "TESTCOUPONCODE2",
+        "discountPercent": 7,
+        "description": "COUPON DESCRIPTION"
+    },
+    {
+        "couponCode": "TESTCOUPONCODE3",
+        "discountPercent": 10,
+        "description": "COUPON DESCRIPTION"
+    }
+]
