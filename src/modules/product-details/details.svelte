@@ -144,11 +144,7 @@
 							console.log('add to cart')
 						}}
 					>
-						{#if isAlreadyInCart}
-							Update Cart
-						{:else}
-							Add to Cart
-						{/if}
+						Add to Cart
 					</Button>
 				</CardFooter>
 			</Card>
