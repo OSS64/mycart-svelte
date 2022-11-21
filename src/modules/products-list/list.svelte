@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Cards from "../products-list/card.svelte";
+  import { AppConstants } from "../../app-constants/app-config";
   // import { baseApiUrl } from "../products-list/config.js"
   let loading = false;
   let error = false;
@@ -22,7 +23,7 @@
     loading = true;
     error = false;
     try {
-      let response = await fetch("http://localhost:3000/products");
+      let response = await fetch(AppConstants.apiBase + "/products");
       products = await response.json();
       products = selectedCategory
         ? products.filter(
@@ -83,12 +84,11 @@
   async function getPrice() {
     loading = true;
     error = false;
-    let response = await fetch("http://localhost:3000/priceRg");
+    let response = await fetch(AppConstants.apiBase + "/priceRg");
     let prices = await response.json();
     pricedata = prices;
   }
   getPrice();
-
 </script>
 
 <div class="row">
