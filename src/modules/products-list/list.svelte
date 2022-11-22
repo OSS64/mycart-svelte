@@ -53,23 +53,18 @@
 	let normoreData = true
 	let fixPage = 2
 	const loadMore = async () => {
-		console.log('first', fixPage)
-		// const response = await SearchApiService.filter({
-		// 	...criteria,
-		// 	page: fixPage++
-		// });
 		let response = await fetch(
 			AppConstants.apiBase + `/products?_page=${fixPage++}&_limit=10`
 		)
-		const data = await response.json()
+		let data = await response.json()
+		data = selectedCategory
+			? data.filter(
+					(el) =>
+						el.category.toUpperCase().indexOf(selectedCategory.toUpperCase()) >
+						-1
+			  )
+			: data
 		products = [...products, ...data]
-		// products = selectedCategory
-		// 	? products.filter(
-		// 			(el) =>
-		// 				el.category.toUpperCase().indexOf(selectedCategory.toUpperCase()) >
-		// 				-1
-		// 	  )
-		// 	: products
 		renderData = [...renderData, ...data]
 		brand = Object.values(
 			products.reduce((a, { features: { brand } }) => {
