@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"build": "rollup -c",
-		"dev": "rollup -c -w -s",
+		"dev": "rollup -c -w",
 		"start": "sirv public -s",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"mock": "npx json-server --watch ./src/content/server/db.js"
@@ -29,6 +29,7 @@
 	},
 	"dependencies": {
 		"bootstrap": "^5.2.1",
+		"qs": "^6.11.0",
 		"rollup-plugin-copy": "^3.4.0",
 		"rxjs": "^7.5.7",
 		"sirv-cli": "^2.0.0",

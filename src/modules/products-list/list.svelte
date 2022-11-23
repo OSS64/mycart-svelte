@@ -10,11 +10,6 @@
 	let pricedata = []
 	let products = []
 	let renderData = []
-	const selectedBrand = {
-		brand: [],
-	}
-	let price = 'All'
-	let noDataShown
 	const queryString = window.location.search
 	const urlParams = new URLSearchParams(queryString)
 	const selectedCategory = urlParams.get('category')
@@ -23,98 +18,83 @@
 		error = false
 		try {
 			let response = await fetch(
-				AppConstants.apiBase + '/products?_page=1&_limit=10'
+				AppConstants.apiBase +
+					`/products?_page=1&_limit=10&category=${selectedCategory}`
 			)
 			const data = await response.json()
 			products = data
-			products = selectedCategory
-				? products.filter(
-						(el) =>
-							el.category
-								.toUpperCase()
-								.indexOf(selectedCategory.toUpperCase()) > -1
-				  )
-				: products
 			renderData = products
-			brand = Object.values(
-				products.reduce((a, { features: { brand } }) => {
-					a[brand] = {
-						brand,
-					}
-					return a
-				}, {})
-			)
+			loading = false
 			normoreData = data?.length < 8
 		} catch (e) {
 			error = true
 		}
 		loading = false
+		fetchBrands()
+		getPrice()
 	})
-	let normoreData = true
-	let fixPage = 2
-	const loadMore = async () => {
-		let response = await fetch(
-			AppConstants.apiBase + `/products?_page=${fixPage++}&_limit=10`
-		)
-		let data = await response.json()
-		data = selectedCategory
-			? data.filter(
-					(el) =>
-						el.category.toUpperCase().indexOf(selectedCategory.toUpperCase()) >
-						-1
-			  )
-			: data
-		products = [...products, ...data]
-		renderData = [...renderData, ...data]
-		brand = Object.values(
-			products.reduce((a, { features: { brand } }) => {
-				a[brand] = {
-					brand,
-				}
-				return a
-			}, {})
-		)
-		normoreData = data?.length < 8
-	}
-	function filterFunc() {
-		let myData = products
-		if (selectedBrand.brand.length > 0) {
-			myData = products.filter((el) =>
-				selectedBrand.brand.includes(el.features.brand)
-			)
-		}
-		if (price == 'All') {
-			renderData = myData
-			console.log('priceRange if', price == 'All')
-		} else {
-			const priceRange = pricedata.find((el) => el.text == price)
-			const { PriceLow, PriceUp } = priceRange
-			console.log('priceRange else', priceRange)
-			renderData = myData.filter(
-				(el) =>
-					parseInt(el.price.replace(',', '')) <= PriceUp &&
-					parseInt(el.price.replace(',', '')) > PriceLow
-			)
-		}
-		if (renderData == '') {
-			// window.alert("No data to be shown");
-			noDataShown.style.visibility = 'visible'
-			noDataShown.style.display = 'block'
-		} else {
-			noDataShown.style.visibility = 'hidden'
-			noDataShown.style.display = 'none'
-		}
-	}
 	async function getPrice() {
 		loading = true
 		error = false
 		let response = await fetch(AppConstants.apiBase + '/priceRg')
 		let prices = await response.json()
 		pricedata = prices
+		loading = false
 	}
-	getPrice()
-	$: {
-		console.log(renderData?.length < 8)
+	const fetchBrands = async () => {
+		let response = await fetch(
+			AppConstants.apiBase + `/products?category=${selectedCategory}`
+		)
+		const data = await response.json()
+		brand = Object.values(
+			data.reduce((a, { features: { brand } }) => {
+				a[brand] = {
+					brand,
+				}
+				return a
+			}, {})
+		)
+	}
+	let criteria = {
+		brand: [],
+		price: [],
+	}
+	const normalizeFetchUrl = () => {
+		let fetchUrl = AppConstants.apiBase
+		const { brand, price } = criteria
+		const priceRange = pricedata.find((el) => el.text == price)
+		fetchUrl = `/products?category=${selectedCategory}`
+		if (brand.length > 0) {
+			brand.forEach((item) => {
+				fetchUrl += `&features.brand=${item}`
+			})
+		}
+		if (priceRange?.PriceLow && priceRange?.PriceUp) {
+			fetchUrl += `&price_gte=${priceRange.PriceLow}&price_lte=${priceRange.PriceUp}`
+		}
+		return fetchUrl
+	}
+
+	let normoreData = true
+	let fixPage = 2
+	const loadMore = async () => {
+		let response = await fetch(
+			AppConstants.apiBase +
+				`${normalizeFetchUrl()}&_page=${fixPage++}&_limit=${10}`
+		)
+		let data = await response.json()
+		renderData = [...renderData, ...data]
+		normoreData = data?.length < 8
+	}
+
+	const filterFunc = async () => {
+		let response = await fetch(
+			AppConstants.apiBase + `${normalizeFetchUrl()}&_page=${1}&_limit=${10}`
+		)
+		fixPage = 2
+		let data = await response.json()
+		renderData = data
+		normoreData = data?.length < 8
 	}
 </script>
 
@@ -140,7 +120,7 @@
 						id={el.brand}
 						type="checkbox"
 						value={el.brand}
-						bind:group={selectedBrand.brand}
+						bind:group={criteria.brand}
 						on:change={() => filterFunc()}
 					/>
 					<label for={el.brand}>{el.brand}</label>
@@ -159,9 +139,9 @@
 							type="radio"
 							name="flexRadioDefault"
 							id="flexRadioDefault1"
-							bind:group={price}
+							bind:group={criteria.price}
 							value={el.text}
-							on:change={filterFunc}
+							on:change={() => filterFunc()}
 						/>
 						<label class="form-check-label" for="flexRadioDefault1">
 							{el.text}
@@ -177,29 +157,26 @@
 		{:else if error}
 			Error: {error}
 		{/if}
-		{#if renderData.length > 0}
-			<div class="cardshow">
-				<div class="row">
-					{#each renderData as el, i}
-						<Cards key={i} product={el} />
-					{/each}
-				</div>
+		<!-- {#if renderData.length > 0} -->
+		<div class="cardshow">
+			<div class="row">
+				{#each renderData as el, i}
+					<Cards key={el?.id} product={el} />
+				{/each}
 			</div>
-		{/if}
+		</div>
+		<!-- {/if} -->
 		{#if normoreData}
 			No More Data
 		{:else}
 			<span
 				use:inview={{
-					rootMargin: '400px',
+					rootMargin: '-150px',
 				}}
 				on:enter={() => {
 					loadMore()
 				}}
 			/>
-			<div class="py-4">
-				<h4 class="text-center">loading..</h4>
-			</div>
 		{/if}
 	</div>
 </div>
