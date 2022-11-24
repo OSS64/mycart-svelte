@@ -5,7 +5,7 @@
 	"scripts": {
 		"build": "rollup -c",
 		"dev": "rollup -c -w",
-		"start": "sirv public -s",
+		"start": "sirv public --single",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"mock": "npx json-server --watch ./src/content/server/db.js"
 	},
@@ -29,12 +29,12 @@
 	},
 	"dependencies": {
 		"bootstrap": "^5.2.1",
-		"qs": "^6.11.0",
 		"rollup-plugin-copy": "^3.4.0",
 		"rxjs": "^7.5.7",
 		"sirv-cli": "^2.0.0",
 		"svelte": "^3.46.3",
 		"svelte-currency-formatter": "^2.1.0",
+		"svelte-forms-lib": "^2.0.1",
 		"svelte-inview": "^3.0.1",
 		"svelte-navigator": "^3.2.2",
 		"svelte-observable": "^0.4.0",
