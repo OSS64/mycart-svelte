@@ -2,12 +2,12 @@
 	import { Button, Form, FormGroup, Input } from 'sveltestrap'
 	import { AppConstants } from '../../app-constants/app-config'
 	import { authStore } from '../../store/auth.store'
-	import { appPref } from '../../utils/utils'
-	let globalErrorMessage: string = ''
+	import { Utility } from '../../shared/utilities/utility'
 	$: email = ''
 	$: password = ''
-	$: isEmailInValid = email.length > 0 && !email.includes('@')
-	$: isPasswordInValid = password.length < 5 && password.length > 0
+	$: isEmailInValid = Utility.isEmailValid(email)
+	$: isPasswordInValid = Utility.isPasswordValid(password)
+	let globalErrorMessage: string = ''
 	const onSubmit = (e: any) => {
 		e.preventDefault()
 		if (email !== AppConstants.defaultUser.email) {
@@ -16,8 +16,8 @@
 			globalErrorMessage = 'Password is not valid'
 		} else {
 			globalErrorMessage = ''
-			appPref.setToken(AppConstants.defaultUser.token)
-			appPref.setUser(AppConstants.defaultUser)
+			Utility.setToken(AppConstants.defaultUser.token)
+			Utility.setUser(AppConstants.defaultUser)
 			authStore.set({
 				isAuthenticated: true,
 				user: AppConstants.defaultUser,
