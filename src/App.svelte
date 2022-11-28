@@ -36,12 +36,12 @@
 				<Header />
 				<Navbar />
 				<div>
+					<Route path=""><Dashboard /></Route>
 					<Route path="products-list" let:params>
 						<Products category={params} />
 					</Route>
 					<Route path="details" component={Details} />
 					<Route path="cart" component={Cart} />
-					<Route path="home"><Dashboard /></Route>
 					<!-- <Route path=""><Login /></Route> -->
 				</div>
 			</Router>
