@@ -22,10 +22,9 @@ export const Utility = {
 		return JSON.parse(sessionStorage.getItem('user'))
 	},
 	isEmailValid: (email) => {
-		console.log('email', email)
-		return email.length > 0 && !email.includes('@')
+		return email.length > 0 &&  !email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 	},
 	isPasswordValid: (password) => {
-		return password.length < 5 && password.length > 0
+		return password.length < 8 && password.length > 0
 	},
 }

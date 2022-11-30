@@ -3,6 +3,7 @@
 	import { AppConstants } from '../../app-constants/app-config'
 	import { authStore } from '../../store/auth.store'
 	import { Utility } from '../../shared/utilities/utility'
+	import { navigate } from 'svelte-routing'
 	$: email = ''
 	$: password = ''
 	$: isEmailInValid = Utility.isEmailValid(email)
@@ -22,13 +23,14 @@
 				isAuthenticated: true,
 				user: AppConstants.defaultUser,
 			})
+			navigate('/')
 		}
 	}
 </script>
 
 <div class="px-page">
 	<Form class="form">
-		<h4 class="title">Login In</h4>
+		<h4 class="title">Login</h4>
 		{#if globalErrorMessage.length}
 			<p class="text-danger">{globalErrorMessage}</p>
 		{/if}
@@ -50,7 +52,9 @@
 				feedback="Please enter a valid password"
 			/>
 		</FormGroup>
-		<Button type="button" on:click={onSubmit}>Login</Button>
+		<Button type="button" on:click={onSubmit}>Login</Button><br />
+		<Button type="button" on:click={() => navigate('/signup')}>Register</Button>
+		<small><p class="text-below">All fields are necessary.</p></small>
 	</Form>
 </div>
 
@@ -86,5 +90,8 @@
 	}
 	.text-danger {
 		color: red;
+	}
+	.text-below {
+		align-items: flex-end;
 	}
 </style>
