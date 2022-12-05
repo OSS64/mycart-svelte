@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte'
 	import Cards from '../products-list/card.svelte'
 	import { AppConstants } from '../../app-constants/app-config'
+	import Filters from './Filters.svelte'
 	// import { baseApiUrl } from "../products-list/config.js"
 	let loading = false
 	let error = false
@@ -95,7 +96,7 @@
   </select>
 </div> -->
 <div class="bigContainer">
-	<div>
+	<!-- <div>
 		<div class="filterHeading">
 			<p>Select Brand</p>
 		</div>
@@ -136,7 +137,14 @@
 				{/each}
 			</div>
 		</div>
-	</div>
+	</div> -->
+	<Filters
+		bind:selectedBrand={selectedBrand.brand}
+		bind:brands={brand}
+		bind:price
+		bind:pricedata
+		on:filter={filterFunc}
+	/>
 	<div>
 		{#if loading}
 			Loading: {loading}
