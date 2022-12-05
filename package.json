@@ -33,6 +33,7 @@
 		"rxjs": "^7.5.7",
 		"sirv-cli": "^2.0.0",
 		"svelte": "^3.46.3",
+		"svelte-confirm": "^0.0.0",
 		"svelte-currency-formatter": "^2.1.0",
 		"svelte-forms-lib": "^2.0.1",
 		"svelte-inview": "^3.0.1",
