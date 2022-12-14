@@ -26,11 +26,9 @@
 			navigate('/')
 		}
 	}
-	const bgUrl =
-		'https://images.unsplash.com/photo-1581092919535-7146ff1a590b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
 </script>
 
-<div class="px-page login-bg" style="background-image: url({bgUrl});">
+<div class="px-page login-bg">
 	<Form class="form">
 		<h4 class="title">Login</h4>
 		{#if globalErrorMessage.length}
@@ -92,6 +90,7 @@
 		background-position: left bottom;
 		position: relative;
 		z-index: 1;
+		background-image: url('https://images.unsplash.com/photo-1581092919535-7146ff1a590b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
 	}
 	.px-page.login-bg:after {
 		content: '';
