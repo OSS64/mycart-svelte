@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte'
 	import Cards from '../products-list/card.svelte'
 	import { AppConstants } from '../../app-constants/app-config'
@@ -8,7 +8,7 @@
 	let error = false
 	let brand = []
 	let pricedata = []
-	let products = []
+	let products: any = []
 	let renderData = []
 	const selectedBrand = {
 		brand: [],
