@@ -1,11 +1,10 @@
 <script>
-	import { createEventDispatcher } from 'svelte'
-	export let selectedBrand
-	export let brands
-	export let price
-	export let pricedata
-	const dispatch = createEventDispatcher()
-	console.log('priceRange', price)
+	import { createEventDispatcher } from "svelte";
+	export let selectedBrand;
+	export let brands;
+	export let price;
+	export let pricedata;
+	const dispatch = createEventDispatcher();
 </script>
 
 <div>
@@ -20,7 +19,7 @@
 					type="checkbox"
 					value={el.brand}
 					bind:group={selectedBrand}
-					on:change={() => dispatch('filter')}
+					on:change={() => dispatch("filter")}
 				/>
 				<label for={el.brand}>{el.brand}</label>
 			</div>
@@ -40,7 +39,7 @@
 						id="flexRadioDefault1"
 						bind:group={price}
 						value={el.text}
-						on:change={() => dispatch('filter')}
+						on:change={() => dispatch("filter")}
 					/>
 					<label class="form-check-label" for="flexRadioDefault1">
 						{el.text}
@@ -52,9 +51,6 @@
 </div>
 
 <style>
-	.cardshow {
-		display: flex;
-	}
 	#dropdown {
 		display: block;
 		width: 300px;
@@ -68,18 +64,18 @@
 	label {
 		display: inline;
 	}
-	h3 {
+	/* h3 {
 		color: grey;
 		margin-top: 20px;
 		margin-bottom: 20px;
-	}
+	} */
 	.rbtn {
 		display: inline-block;
 	}
-	.bigContainer {
+	/* .bigContainer {
 		display: grid;
 		grid-template-columns: 20% 80%;
-	}
+	} */
 	.rbtnContainer {
 		text-align: left;
 		margin-left: 30px;
@@ -94,10 +90,6 @@
 		margin-left: 30px;
 		margin-right: 30px;
 		box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
-	}
-	.noData {
-		display: none;
-		visibility: hidden;
 	}
 	:global(#card-cls .card-body) {
 		text-align: center;

@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { navigate } from 'svelte-routing'
 	import { Button, Form, FormGroup, Input } from 'sveltestrap'
 	import { AppConstants } from '../../app-constants/app-config'
-	import { authStore } from '../../store/auth.store'
 	import { Utility } from '../../shared/utilities/utility'
-	import { navigate } from 'svelte-routing'
+	import { authStore } from '../../store/auth.store'
 	$: email = ''
 	$: password = ''
 	$: isEmailInValid = Utility.isEmailValid(email)
@@ -26,9 +26,11 @@
 			navigate('/')
 		}
 	}
+	const bgUrl =
+		'https://images.unsplash.com/photo-1581092919535-7146ff1a590b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
 </script>
 
-<div class="px-page">
+<div class="px-page login-bg" style="background-image: url({bgUrl});">
 	<Form class="form">
 		<h4 class="title">Login</h4>
 		{#if globalErrorMessage.length}
@@ -59,16 +61,6 @@
 </div>
 
 <style lang="scss">
-	// :global(.username) {
-	// 	margin: auto;
-	// 	width: 20%;
-	// 	box-shadow: 0px -2px 20px 2px rgba(0, 0, 0, 0.4);
-	// }
-	// :global(.password) {
-	// 	margin: auto;
-	// 	width: 20%;
-	// 	box-shadow: 0px -2px 20px 2px rgba(0, 0, 0, 0.4);
-	// }
 	.title {
 		text-align: center;
 		margin-bottom: 20px;
@@ -84,14 +76,32 @@
 	:global(.form) {
 		min-width: 450px;
 		background: #fff;
-		box-shadow: 0 0 10px #ddd;
+		box-shadow: 0 0 10px rgb(0, 0, 0);
 		text-align: center;
 		padding: 50px 20px;
+		border-radius: 10px;
 	}
 	.text-danger {
 		color: red;
 	}
 	.text-below {
 		align-items: flex-end;
+	}
+	.px-page.login-bg {
+		background-size: cover;
+		background-position: left bottom;
+		position: relative;
+		z-index: 1;
+	}
+	.px-page.login-bg:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 100%;
+		width: 100%;
+		background: #000;
+		z-index: -1;
+		opacity: 0.7;
 	}
 </style>

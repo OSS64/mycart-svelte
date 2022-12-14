@@ -1,6 +1,6 @@
-.container {
-	padding-bottom: 10px;
-}
+// .container {
+// 	padding-bottom: 10px;
+// }
 :global(.px-form) {
 	background-color: #f0f8ff;
 	padding-top: 20px;
@@ -35,9 +35,6 @@
 	width: 90%;
 	padding-left: 10%;
 }
-/* :global(.px-age input){
-    margin-left:36px
-} */
 :global(.px-agelabel) {
 	margin-right: 10px;
 	display: flex;
@@ -59,9 +56,9 @@
 :global(.px-genderlabel2) {
 	margin-left: 135px;
 }
-.gendertitle {
+.px-gendertitle {
 	display: flex;
-	padding-left: 52px;
+	margin-left: 32%;
 }
 
 :global(.px-checkmeout) {
@@ -76,12 +73,26 @@
 :global(.px-heading) {
 	padding-top: 15px;
 }
-.signup {
+.px-signup {
 	color: black;
 	padding-bottom: 5px;
 	padding-top: 10px;
+	text-align: center;
 }
-.account {
+.px-account {
 	padding-bottom: 20px;
 	padding-top: 20px;
+	text-align: center;
+}
+:global(.px-btn-register) {
+	// padding-top: 15px;
+	// text-align: center;
+	margin-left: 42%;
+}
+.px-text-danger{
+	color: #FF0000;	
+	text-align: center;
+}
+.px-bottomtext{
+	text-align: center;
 }

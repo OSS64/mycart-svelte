@@ -1,113 +1,130 @@
 <script lang="ts">
-	import { Form, FormGroup, Input, Label, Button, FormText } from 'sveltestrap'
-	import { Col, Row } from 'sveltestrap'
-	import { navigate, Link } from 'svelte-routing'
-	import { Utility } from '../../shared/utilities/utility'
-	let checkme = false
-	let click = false
-	$: ageInvalid = false
-	$: email = ''
-	$: password = ''
+	import {
+		Form,
+		FormGroup,
+		Input,
+		Label,
+		Button,
+		FormText,
+	} from "sveltestrap";
+	import { Col, Row } from "sveltestrap";
+	import { navigate, Link } from "svelte-routing";
+	import { Utility } from "../../shared/utilities/utility";
+
+	let checkme = false;
+	let click = false;
+
+	$: ageInvalid = false;
+	$: email = "";
+	$: password = "";
+	$: count = 0;
+
 	let formvalues = {
-		selectAge: '',
-		textArea: '',
+		selectAge: "",
+		textArea: "",
 		checkmeout: false,
-		gender: '',
-	}
+		gender: "",
+	};
 	$: errors = {
-		email: '',
-		password: '',
-		textArea: '',
-		gender: '',
-		checkmeout: '',
-		selectAge: '',
-	}
-	$: isEmailInValid = Utility.isEmailValid(email)
-	$: isPasswordInValid = Utility.isPasswordValid(password)
+		email: "",
+		password: "",
+		textArea: "",
+		gender: "",
+		checkmeout: "",
+		selectAge: "",
+	};
+	$: isEmailInValid = Utility.isEmailValid(email);
+	$: isPasswordInValid = Utility.isPasswordValid(password);
 	$: isTextareaInValid =
-		formvalues.textArea.length < 20 && formvalues.textArea.length > 0
+		formvalues.textArea.length < 20 && formvalues.textArea.length > 0;
 	const ageselection = (e) => {
-		let ageselect = e.target.value
+		let ageselect = e.target.value;
 		if (ageselect) {
-			ageInvalid = false
+			ageInvalid = false;
 		}
-	}
+	};
 	const ischeckmeoutvalid = (e) => {
-		checkme = e.target.checked
+		checkme = e.target.checked;
 		if (checkme == true) {
-			errors.checkmeout = ''
+			errors.checkmeout = "";
 		}
-	}
+	};
 	const isclickmeout = (e) => {
-		click = e.target.checked
+		click = e.target.checked;
 		if (click == true) {
-			errors.gender = ';'
+			errors.gender = ";";
 		}
-	}
+	};
+	const textareaLengthCheck = (e) => {
+		count = e.target.value.length;
+		console.log(count);
+	};
 	function onSubmit(e) {
-		if (password === '') {
-			isPasswordInValid = true
-			errors.password = 'password must be filled out'
+		if (password === "") {
+			isPasswordInValid = true;
+			errors.password = "password must be filled out";
 		} else if (
 			password.trim().length < 8 ||
 			!password.match(/^[A-Za-z]\w{7,14}$/)
 		) {
-			isPasswordInValid = true
-			errors.password = 'password  must atleast 8 characters'
+			isPasswordInValid = true;
+			errors.password = "password  must atleast 8 characters";
 		} else {
-			errors.password = ''
+			errors.password = "";
 		}
-		if (formvalues.textArea === '') {
-			isTextareaInValid = true
-			errors.textArea = 'textarea must be filled out'
+		if (formvalues.textArea === "") {
+			isTextareaInValid = true;
+			errors.textArea = "textarea must be filled out";
 		} else if (formvalues.textArea.trim().length < 20) {
-			isTextareaInValid = true
-			errors.textArea = 'text at least contain 20 characters'
+			isTextareaInValid = true;
+			errors.textArea = "text at least contain 20 characters";
 		} else {
-			errors.textArea = ''
+			errors.textArea = "";
 		}
-		if (email === '') {
-			isEmailInValid = true
-			errors.email = 'email must be filled out'
-		} else if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-			isEmailInValid = true
-			errors.email = 'you have entered an invalid email address'
+		if (email === "") {
+			isEmailInValid = true;
+			errors.email = "email must be filled out";
+		} else if (
+			!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+		) {
+			isEmailInValid = true;
+			errors.email = "you have entered an invalid email address";
 		} else {
-			errors.email = ''
+			errors.email = "";
 		}
-		ischeckmeoutvalid(e)
+		ischeckmeoutvalid(e);
 		if (formvalues.checkmeout == false) {
-			errors.checkmeout = '*Please click the checkbox'
+			errors.checkmeout = "*Please click the checkbox";
 		} else {
-			errors.checkmeout = ''
+			errors.checkmeout = "";
 		}
-		isclickmeout(e)
+		isclickmeout(e);
 		if (formvalues.gender.length == 0) {
-			errors.gender = '*Please select gender'
+			errors.gender = "*Please select gender";
 		} else {
-			errors.gender = ''
+			errors.gender = "";
 		}
 		if (formvalues.selectAge.length == 0) {
-			ageInvalid = true
-			errors.selectAge = 'please select age'
+			ageInvalid = true;
+			errors.selectAge = "please select age";
 		} else {
-			errors.selectAge = ''
+			errors.selectAge = "";
 		}
 		if (
-			errors.email == '' &&
-			errors.password == '' &&
-			errors.textArea == '' &&
-			errors.selectAge == '' &&
-			errors.gender == '' &&
-			errors.checkmeout == ''
+			errors.email == "" &&
+			errors.password == "" &&
+			errors.textArea == "" &&
+			errors.selectAge == "" &&
+			errors.gender == "" &&
+			errors.checkmeout == ""
 		) {
-			localStorage.setItem('email', email)
-			localStorage.setItem('password', password)
-			localStorage.setItem('selectAge', formvalues.selectAge)
-			localStorage.setItem('Text', formvalues.textArea)
-			localStorage.setItem('checkmeout', String(formvalues.checkmeout))
-			localStorage.setItem('gender', formvalues.gender)
-			navigate('/login')
+			localStorage.setItem("email", email);
+			localStorage.setItem("password", password);
+			localStorage.setItem("selectAge", formvalues.selectAge);
+			localStorage.setItem("Text", formvalues.textArea);
+			localStorage.setItem("checkmeout", String(formvalues.checkmeout));
+			localStorage.setItem("gender", formvalues.gender);
+			navigate("/login");
 		}
 	}
 </script>
@@ -120,7 +137,7 @@
 			</FormText>
 			<Form class="px-form">
 				<FormGroup class="px-email">
-					<Label for="email" class="px-emaillabel">Email:</Label>
+					<Label for="email" class="px-emaillabel">Email:*</Label>
 					<Input
 						type="email"
 						bind:value={email}
@@ -132,7 +149,9 @@
 					/>
 				</FormGroup>
 				<FormGroup class="px-password">
-					<Label for="password" class="px-passwordlabel">Password:</Label>
+					<Label for="password" class="px-passwordlabel"
+						>Password:*</Label
+					>
 					<Input
 						type="password"
 						bind:value={password}
@@ -142,9 +161,10 @@
 						placeholder="Enter a password"
 						feedback={errors.password}
 					/>
+					<p>Password must have atleast 8 characters.</p>
 				</FormGroup>
 				<FormGroup class="px-age">
-					<Label for="age" class="px-agelabel">Age:</Label>
+					<Label for="age" class="px-agelabel">Age:*</Label>
 					<Input
 						type="select"
 						name="select"
@@ -162,7 +182,9 @@
 					</Input>
 				</FormGroup>
 				<FormGroup class="px-textarea">
-					<Label for="texarea" class="px-textarealabel">Summary:</Label>
+					<Label for="texarea" class="px-textarealabel"
+						>Summary:* count:{count}</Label
+					>
 					<Input
 						type="textarea"
 						name="text"
@@ -172,10 +194,11 @@
 						placeholder="Write something about yourself"
 						invalid={isTextareaInValid}
 						feedback={errors.textArea}
+						on:keyup={textareaLengthCheck}
 					/>
 				</FormGroup>
 				<FormGroup class="px-gender">
-					<span class="px-gendertitle">Gender:</span>
+					<span class="px-gendertitle">Gender:*</span>
 					<Label class="px-genderlabel1">
 						<Input
 							id="r1"
@@ -204,21 +227,26 @@
 					<Input
 						id="c1"
 						type="checkbox"
-						label="Check me out"
+						label="check me out*"
 						bind:checked={formvalues.checkmeout}
 						on:change={ischeckmeoutvalid}
 					/>
 				</FormGroup>
 				<div class="px-text-danger">{errors.checkmeout}</div>
-				<Button type="button" on:click={onSubmit}>Register</Button>
+				<Button
+					class="px-btn-register"
+					type="button"
+					on:click={onSubmit}>Register</Button
+				>
+				<p class="px-bottomtext">All * marked fields are mandatory to fill.</p>
 			</Form>
 		</Col>
 	</Row>
 	<div class="px-account">
-		<Link to="/login">Account Login</Link>
+		<Link to="/login">Already have an account? Login</Link>
 	</div>
 </div>
 
 <style lang="scss">
-	@import './signup.scss';
+	@import "./signup.scss";
 </style>

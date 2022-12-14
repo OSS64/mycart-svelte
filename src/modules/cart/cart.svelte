@@ -1,39 +1,52 @@
 <script>
-	import { cart } from "../../store/cart.store";
-	import { onMount, afterUpdate } from "svelte";
+	import {
+		cart,
+		maxquantity,
+		minquantity,
+		totalPrice,
+	} from "../../store/cart.store";
+	import { onMount, onDestroy } from "svelte";
 	import { AppConstants } from "../../app-constants/app-config";
 	import { Utility } from "../../shared/utilities/utility";
+	import Coupon from "../coupon/coupon.svelte";
+	import { fade, fly } from "svelte/transition";
 
-  
 	$: payableAmount = 0;
 	let selectedCoupon = "";
 	let codeList = [];
-	let totalCartValue = 0;
 	let validCoupon = false;
 	let totalPriceAfterApplyingCoupon = 0;
-
-	$: totalCartValue = $cart.reduce((sum, item) => {
-		return sum + Number(item.price.replaceAll(",", "")) * item.quantity;
-	}, 0);
 
 	onMount(async () => {
 		initialisingQty();
 		let couponCodeItems = await fetch(AppConstants.apiBase + "/coupon");
 		codeList = await couponCodeItems.json();
-		 payableAmount = totalCartValue;
+		totalPrice.subscribe((value) => {
+			payableAmount = value;
+		});
 	});
 
-	afterUpdate(() => {
-		payableAmount = totalCartValue;
+	const unsubscribe = totalPrice.subscribe((value) => {
+		payableAmount = value;
+	});
+
+	onDestroy(() => {
+		unsubscribe();
+	});
+
+	const applyCoupon = (event) => {
+		payableAmount = $totalPrice;
 		validCoupon = false;
+		selectedCoupon = event.detail.selectedCoupon;
 		for (let coupon of codeList) {
 			if (selectedCoupon.trim() === coupon.couponCode.trim()) {
 				validCoupon = coupon;
-				totalPriceAfterApplyingCoupon = totalCartValue - (totalCartValue * (coupon.discountPercent / 100));
+				totalPriceAfterApplyingCoupon =
+					$totalPrice - $totalPrice * (coupon.discountPercent / 100);
 			}
 		}
-	});
-	
+	};
+
 	function initialisingQty() {
 		for (let product of $cart) {
 			product["quantity"] = product.hasOwnProperty("quantity")
@@ -46,7 +59,7 @@
 	function plusItem(product) {
 		for (let item of $cart) {
 			if (item.id === product.id) {
-				if (item["quantity"] < 10) {
+				if (item["quantity"] < $maxquantity) {
 					item["quantity"] += 1;
 				}
 			}
@@ -57,7 +70,7 @@
 	function minusItem(product) {
 		for (let item of $cart) {
 			if (item.id === product.id) {
-				if (item["quantity"] > 1) {
+				if (item["quantity"] > $minquantity) {
 					item["quantity"] -= 1;
 				}
 			}
@@ -70,8 +83,11 @@
 			return item.id !== id;
 		});
 	}
-
 </script>
+
+<svelte:head>
+	<title>cart items</title>
+</svelte:head>
 
 <div class="shopping-cart">
 	{#if $cart == 0}
@@ -80,14 +96,16 @@
 		</div>
 	{:else}
 		{#each $cart as item}
-			<div class="shadow cart-item">
+			<div transition:fly class="shadow cart-item">
 				<div class="row">
 					<div class="image col-lg-3">
 						<img width="200" src={item.imageUrl} alt="laptop" />
 					</div>
 					<div class="col-lg-6">
 						<div class="details">
-							<span class="cart-item-brand">{item.features.brand}</span>
+							<span class="cart-item-brand"
+								>{item.features.brand}</span
+							>
 							<p class="cart-item-model">
 								{item.features.modelName}
 							</p>
@@ -106,16 +124,24 @@
 									+
 								</button>
 								<p>{item.quantity}</p>
-								<button class="btn btn-secondary" on:click={() => minusItem(item)}>
+								<button
+									class="btn btn-secondary"
+									on:click={() => minusItem(item)}
+								>
 									-
 								</button>
-								<button class="btn btn-danger" on:click={() => deleteItem(item.id)}>
+								<button
+									class="btn btn-danger"
+									on:click={() => deleteItem(item.id)}
+								>
 									Delete
 								</button>
 							</div>
-							<p>SubTotal : {Utility.formatNumber.format(Number(
-									item.price.replaceAll(",", "")
-								) * item.quantity)}
+							<p>
+								SubTotal : {Utility.formatNumber.format(
+									Number(item.price.replaceAll(",", "")) *
+										item.quantity
+								)}
 							</p>
 						</div>
 					</div>
@@ -123,28 +149,30 @@
 			</div>
 		{/each}
 		<div class="total">
-			<h4> Total Price: {Utility.formatNumber.format(payableAmount)} </h4>
+			<h4>Total Price: {Utility.formatNumber.format(payableAmount)}</h4>
 			{#if validCoupon}
-				<h4>Discount Price : {Utility.formatNumber.format(totalPriceAfterApplyingCoupon)}</h4>
-				<span class="discount"> at {validCoupon.discountPercent} % discount ! </span>
-				{:else if selectedCoupon}
-				<span class="discount"> Invalid Coupon</span>
-				{:else}
-				<span class="discount"> </span>
+				<h4 transition:fade>
+					Discount Price : {Utility.formatNumber.format(
+						totalPriceAfterApplyingCoupon
+					)}
+				</h4>
+				<span class="discount" transition:fade>
+					at {validCoupon.discountPercent} % discount !
+				</span>
+			{:else if selectedCoupon}
+				<span class="discount" transition:fade> Invalid Coupon</span>
+			{:else}
+				<span class="discount" />
 			{/if}
 		</div>
 		<div class="btns">
 			<div class="coupon">
-				<input
-					type="text"
-					name="code"
-					title="enter a couponCode"
-					maxlength="20"
-					bind:value={selectedCoupon}
-					placeholder="Enter Coupon Code"
-				/>
+				<Coupon on:applycoupon={applyCoupon} />
+				<!-- {#await import("../coupon/coupon.svelte") then Module}
+					<Module.default var1="value 1" var2="value 2" />
+				{/await} -->
 			</div>
-			<button class="btn btn-primary btn1">Checkout</button>
+			<button class="btn btn-primary">Checkout</button>
 		</div>
 	{/if}
 </div>

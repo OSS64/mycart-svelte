@@ -29,7 +29,7 @@
 }
 .buttons {
 	display: flex;
-	gap:5px;
+	gap: 5px;
 	font-size: 16px;
 	align-items: center;
 	margin-left: 45px;
@@ -38,7 +38,7 @@
 	font-size: medium;
 	color: #000000;
 	font-weight: bold;
-	text-transform: uppercase
+	text-transform: uppercase;
 }
 .cart-item-model {
 	font-size: medium;
@@ -55,33 +55,19 @@
 	color: #000000;
 	text-align: right;
 	font-weight: bold;
-	margin: 0 40px;
+	margin: 0 40px 0px 10px;
 }
 .btns {
 	display: inline;
-	gap: 10px;
+	gap: 0px;
 	text-align: right;
-	margin: 0 40px;
+	margin: 10px 40px 0px 10px;
 }
-.coupon{
+.coupon {
 	display: inline-block;
-	margin-right: 20px;
-	input {
-		padding: 8px 8px;
-	}
 }
-.coupon input{ 
-	font-size: small;
-}
-.discount{
+.discount {
 	font-size: 12px;
-    font-style: italic;
-    color: cadetblue;
-}
-.discountprice{
-	// display:none;
-	// visibility: hidden;
-	margin: 0 ;
-	color: #000000;
-	float: right;
+	font-style: italic;
+	color: cadetblue;
 }

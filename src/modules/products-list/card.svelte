@@ -12,10 +12,10 @@
     } from "sveltestrap";
     import { navigate } from "svelte-routing";
     export let product;
-    export let key;
 </script>
 
-<Card class="shadow mb-3 card-cls" id="card-cls">
+
+<Card class="shadow mb-3 card-cls product-card" id="card-cls">
     <CardHeader class="card-head">
         <CardTitle>{product.features.brand}</CardTitle>
     </CardHeader>
@@ -44,18 +44,17 @@
     :global(.card-img){
         height:120px;width:120px;
     }
-    :global(.card-text){
-        padding-top:10px;height:190px;
+    :global(.product-card .card-text){
+        padding-top:10px;
+        height:190px;
         font-size: medium;
     }
-    // :global(#card-cls){
-    //     width:300px; margin-left: 50px;
-    // }
     :global(.card-cls){
         width:300px; margin-left: 50px;
     }
     :global(.card-head){
         width: 299px;
         transform: translate(-4%);
+        text-align: center;
     }
 </style>
