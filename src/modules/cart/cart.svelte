@@ -168,9 +168,6 @@
 		<div class="btns">
 			<div class="coupon">
 				<Coupon on:applycoupon={applyCoupon} />
-				<!-- {#await import("../coupon/coupon.svelte") then Module}
-					<Module.default var1="value 1" var2="value 2" />
-				{/await} -->
 			</div>
 			<button class="btn btn-primary">Checkout</button>
 		</div>

@@ -12,7 +12,7 @@
 		<p>Select Brand</p>
 	</div>
 	<div class="container">
-		{#each brands as el, i}
+		{#each brands as el}
 			<div class="checkBoxBrand">
 				<input
 					id={el.brand}

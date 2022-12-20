@@ -1,15 +1,13 @@
-<script>
-</script>
-
 <div class="cta">
-	<h2 class="title">Get started with Our Products</h2>
+	<h2 class="title">Learn more about our website.</h2>
 	<h5 class="sub-title">
-		You can start by selecting a category from the list below.
+		Check out our services we offer from the list below.
 	</h5>
 </div>
 
 <style>
 	.cta {
+		background-image: url("./../content/images/parallax.avif");
 		min-height: 300px;
 		background-position: bottom left;
 		position: relative;
@@ -24,10 +22,9 @@
 		flex-direction: column;
 		position: relative;
 		z-index: 1;
-		background-image: url('https://images.unsplash.com/photo-1527356900876-cae61d8d8462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80');
 	}
 	.cta:after {
-		content: '';
+		content: "";
 		position: absolute;
 		left: 0;
 		top: 0;

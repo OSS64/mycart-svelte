@@ -13,7 +13,7 @@
 
 	let checkme = false;
 	let click = false;
-
+	
 	$: ageInvalid = false;
 	$: email = "";
 	$: password = "";
@@ -37,29 +37,29 @@
 	$: isPasswordInValid = Utility.isPasswordValid(password);
 	$: isTextareaInValid =
 		formvalues.textArea.length < 20 && formvalues.textArea.length > 0;
-	const ageselection = (e) => {
-		let ageselect = e.target.value;
+	const ageselection = (e:Event) => {
+		let ageselect = (e.target as HTMLInputElement).value;
 		if (ageselect) {
 			ageInvalid = false;
 		}
 	};
-	const ischeckmeoutvalid = (e) => {
-		checkme = e.target.checked;
+	const ischeckmeoutvalid = (e:Event) => {
+		checkme = (e.target as HTMLInputElement).checked;
 		if (checkme == true) {
 			errors.checkmeout = "";
 		}
 	};
-	const isclickmeout = (e) => {
-		click = e.target.checked;
+	const isclickmeout = (e:Event) => {
+		click = (e.target as HTMLInputElement).checked;
 		if (click == true) {
 			errors.gender = ";";
 		}
 	};
-	const textareaLengthCheck = (e) => {
-		count = e.target.value.length;
+	const textareaLengthCheck = (e:Event) => {
+		count = (e.target as HTMLInputElement).value.length;
 		console.log(count);
 	};
-	function onSubmit(e) {
+	function onSubmit(e:Event) {
 		if (password === "") {
 			isPasswordInValid = true;
 			errors.password = "password must be filled out";

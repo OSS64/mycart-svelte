@@ -1,8 +1,4 @@
 .app-navbar {
-    a, a:hover {
-        text-decoration: none !important;
-        color: $theme-color;
-    }
     :global(li.nav-item.mlmr-3:not(:last-child)) {
         margin: 0 15px;
     }

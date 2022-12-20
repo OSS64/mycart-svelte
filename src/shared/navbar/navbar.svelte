@@ -12,11 +12,13 @@
   import { Confirm } from "svelte-confirm";
   import { cart } from "../../store/cart.store";
   import { authStore, logout } from "../../store/auth.store";
+
   let cartItemsCount = 0;
   let isOpen = false;
+  
   $: cartItemsCount = $cart.reduce((sum, item) => sum + item.quantity, 0);
-  function navCollapseOpener(event) {
-    isOpen = event.detail.isOpen;
+  function navCollapseOpener(e:CustomEvent) {
+    isOpen = e.detail.isOpen;
   }
   let user: any = null;
   let isAuthonicated: boolean = false;

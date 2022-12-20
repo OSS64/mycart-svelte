@@ -1,28 +1,6 @@
-.navbar {
-    a, a:hover {
-        text-decoration: none !important;
-    }
-    .navbar-brand {
-        a {
-            margin-left:10px;
-            font-style:italic;
-            text-decoration: none !important;
-        }
-    }
-    .navbar-brand:focus, .navbar-brand:hover {
-        color: $theme-color;
-        a:hover {
-            text-decoration: none !important;
-        }
-    }
-    .title {
-        color: $theme-color;
-        cursor: pointer;
-        img {
-            height: 80px;
-        }
-    }
-
+.navbar-dark{
+    padding:10px 0;
+}
     .noselect {
         -webkit-touch-callout: none; /* iOS Safari */
           -webkit-user-select: none; /* Safari */
@@ -32,4 +10,3 @@
                   user-select: none; /* Non-prefixed version, currently
                                         supported by Chrome, Edge, Opera and Firefox */
       }
-}
