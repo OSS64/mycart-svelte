@@ -53,7 +53,7 @@
         </NavItem>
         <NavItem class="mlmr-3">
           {#if isAuthonicated}
-            <Confirm
+            <Confirm 
               confirmTitle="Confirm"
               cancelTitle="Cancel"
               let:confirm={confirmThis}
