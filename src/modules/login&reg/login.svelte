@@ -1,18 +1,45 @@
 <script lang="ts">
 	import { navigate, Link } from 'svelte-routing'
+	import { afterUpdate, onMount } from 'svelte/internal'
 	import { Button, Form, FormGroup, Input } from 'sveltestrap'
 	import { AppConstants } from '../../app-constants/app-config'
 	import { Utility } from '../../shared/utilities/utility'
 	import { authStore } from '../../store/auth.store'
+	let showErrorMessage = false
 	$: email = ''
 	$: password = ''
 	$: isEmailInValid = Utility.isEmailValid(email)
 	$: isPasswordInValid = Utility.isPasswordValid(password)
-	let globalErrorMessage: string = ''
+	$: globalErrorMessage = ''
+	$: {
+		if (email.length === 0 && password.length === 0) {
+			globalErrorMessage = 'Fields are Empty'
+		} else if (email.length === 0) {
+			globalErrorMessage = 'Email is Empty'
+		} else if (password.length === 0) {
+			globalErrorMessage = 'Password is Empty'
+		} else if (
+			email !== AppConstants.defaultUser.email &&
+			password !== AppConstants.defaultUser.password
+		) {
+			globalErrorMessage = 'Email and password wrong'
+		} else if (email !== AppConstants.defaultUser.email) {
+			globalErrorMessage = 'Email wrong'
+		} else if (password !== AppConstants.defaultUser.password) {
+			globalErrorMessage = 'Password wrong'
+		} else {
+			globalErrorMessage = ''
+		}
+		console.log(globalErrorMessage, 'globalErrorMessage')
+	}
+	onMount(() => {
+		console.log('login page')
+	})
+	afterUpdate(() => {
+		console.log('login page after update')
+	})
 	const onSubmit = (e: any) => {
 		e.preventDefault()
-		console.log('email', email)
-		console.log('password', password)
 		if (email.length === 0 && password.length === 0) {
 			globalErrorMessage = 'Fields are Empty'
 			return
@@ -25,10 +52,15 @@
 			globalErrorMessage = 'Password is Empty'
 			return
 		}
-		if (email !== AppConstants.defaultUser.email) {
-			globalErrorMessage = 'Email invalid'
+		if (
+			email !== AppConstants.defaultUser.email &&
+			password !== AppConstants.defaultUser.password
+		) {
+			globalErrorMessage = 'Email and password wrong'
+		} else if (email !== AppConstants.defaultUser.email) {
+			globalErrorMessage = 'Email wrong'
 		} else if (password !== AppConstants.defaultUser.password) {
-			globalErrorMessage = 'Password invalid'
+			globalErrorMessage = 'Password wrong'
 		} else {
 			globalErrorMessage = ''
 			Utility.setToken(AppConstants.defaultUser.token)
@@ -46,25 +78,28 @@
 	<Form class="form">
 		<h4 class="title">Welcome user!</h4>
 		<p class="text-below">All fields are necessary.</p>
-		{#if globalErrorMessage.length}
+		{#if globalErrorMessage.length && showErrorMessage}
 			<p class="text-danger">{globalErrorMessage}</p>
 		{/if}
 		<FormGroup class="username" floating label="Email">
 			<Input
+				on:focus={() => {
+					showErrorMessage = true
+				}}
 				type="email"
+				autocomplete="off"
 				bind:value={email}
 				placeholder="Enter a value"
 				invalid={isEmailInValid}
-				feedback="Please enter a valid email"
 			/>
 		</FormGroup>
 		<FormGroup class="password" floating label="Password">
 			<Input
 				type="password"
+				autocomplete="off"
 				bind:value={password}
 				invalid={isPasswordInValid}
 				placeholder="Enter a value"
-				feedback="Please enter a valid password"
 			/>
 		</FormGroup>
 		<Button type="button" on:click={onSubmit}>Login</Button><br />
