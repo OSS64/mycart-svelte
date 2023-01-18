@@ -1,0 +1,21 @@
+:global(.card-cls) {
+  width: 300px;
+  margin-left: 50px;
+  :global(#card-head) {
+    width: 299px;
+    transform: translate(-4%);
+    text-align: center;
+  }
+  :global(.card-img) {
+    height: 120px;
+    width: 120px;
+  }
+  :global(.px-card-subtitle) {
+    margin-bottom: 10px;
+  }
+  :global(.card-text) {
+    padding-top: 10px;
+    height: 190px;
+    font-size: medium;
+  }
+}
