@@ -1,5 +1,7 @@
-node_modules
+/node_modules/
 /public/build/
 /public/vendor/
 /package-lock.json
 .DS_Store
+/dist/
+/unit/
