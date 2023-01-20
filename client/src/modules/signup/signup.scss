@@ -1,150 +1,150 @@
 .px-container {
-	background: url("./../content/images/signup.png") no-repeat center center
-	  fixed;
-	min-height: 100vh;
+  background: url("./../content/images/signup.png") no-repeat center center
+    fixed;
+  min-height: 100vh;
+}
+
+:global(.px-form) {
+  background-color: #f0f8ff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+  border-radius: 8px;
+  outline: none;
+  border: 2px solid #c4c4c4;
+  margin: 0 auto 30px;
+  width: 80%;
+
+  :global(.toast) {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: white;
   }
-  
-  :global(.px-form) {
-	background-color: #f0f8ff;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-	border-radius: 8px;
-	outline: none;
-	border: 2px solid #c4c4c4;
-	margin: 0 auto 30px;
-	width: 80%;
-  
-	:global(.toast) {
-	  position: fixed;
-	  left: 50%;
-	  top: 50%;
-	  transform: translate(-50%, -50%);
-	  z-index: 1;
-	  background-color: white;
-	}
-  
-	:global(.px-email) {
-	  width: 90%;
-	  padding-left: 10%;
-	  padding-top: 0px;
-	  margin-bottom: 8px !important;
-	  :global(.px-emaillabel) {
-		margin-right: 10px;
-		display: flex;
-		padding-bottom: 0px;
-		margin-bottom: 0px;
-	  }
-	}
-  
-	:global(.px-password) {
-	  width: 90%;
-	  padding-left: 10%;
-	  margin-bottom: 8px !important;
-	  :global(.px-passwordlabel) {
-		margin-right: 10px;
-		display: flex;
-		padding-bottom: 0px;
-		margin-bottom: 0px;
-	  }
-	}
-  
-	:global(.px-age) {
-	  width: 90%;
-	  padding-left: 10%;
-	  margin-bottom: 8px !important;
-	  :global(.px-agelabel) {
-		margin-right: 10px;
-		display: flex;
-		padding-bottom: 0px;
-		margin-bottom: 0px;
-	  }
-	}
-  
-	:global(.px-textarea) {
-	  width: 90%;
-	  padding-left: 10%;
-	  margin-bottom: 8px !important;
-	  :global(.px-textarealabel) {
-		margin-right: 8px;
-		display: flex;
-		padding-bottom: 0px;
-		margin-bottom: 0px;
-	  }
-	}
-  
-	:global(.px-gender) {
-	  width: 30%;
-	  margin-bottom: 0px !important;
-	  padding-bottom: 0px;
-	  height: 20px;
-	  display: flex;
-	  :global(.px-genderlabel1) {
-		margin-left: 10px;
-	  }
-	  :global(.px-genderlabel2) {
-		margin-left: 20px;
-	  }
-	}
-  
-	:global(.px-checkmeout) {
-	  width: 70%;
-	  padding-left: 10%;
-	  padding-bottom: 0px;
-	  display: flex;
-	  margin-bottom: 0px !important;
-	  height: 25px;
-	  :global(.px-checkoutlabel) {
-		margin-right: 10px;
-		display: flex;
-	  }
-	}
-  
-	:global(.px-btn-register) {
-	  margin-left: 42%;
-	  margin-top: 5px;
-	}
-	.px-toptext {
-	  text-align: left;
-	  color: #000000;
-	  padding-left: 10%;
-	  font-size: 12px;
-	}
-	.px-text-danger {
-	  color: #dc3545;
-	  text-align: left;
-	  font-size: 14px;
-	  padding-left: 10%;
-	}
-	.px-account {
-	  padding-top: 20px;
-	  text-align: center;
-	}
-	.px-gendertitle {
-	  display: flex;
-	  margin-left: 32%;
-	}
-	.asterick {
-	  color: #ff0000;
-	}
-	.passwordhint {
-	  font-size: 12px;
-	}
-	.labelgroup {
-	  display: flex;
-	  justify-content: space-between;
-	}
+
+  :global(.px-email) {
+    width: 90%;
+    padding-left: 10%;
+    padding-top: 0px;
+    margin-bottom: 8px !important;
+    :global(.px-emaillabel) {
+      margin-right: 10px;
+      display: flex;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+    }
   }
-  :global(body) {
-	overflow-x: hidden;
-	font-size: 16px;
+
+  :global(.px-password) {
+    width: 90%;
+    padding-left: 10%;
+    margin-bottom: 8px !important;
+    :global(.px-passwordlabel) {
+      margin-right: 10px;
+      display: flex;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+    }
   }
-  :global(.px-heading) {
-	padding-top: 25px;
-	.px-signup {
-	  color: rgb(216, 210, 210);
-	  padding-bottom: 5px;
-	  padding-top: 15px;
-	  text-align: center;
-	}
+
+  :global(.px-age) {
+    width: 90%;
+    padding-left: 10%;
+    margin-bottom: 8px !important;
+    :global(.px-agelabel) {
+      margin-right: 10px;
+      display: flex;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+    }
   }
+
+  :global(.px-textarea) {
+    width: 90%;
+    padding-left: 10%;
+    margin-bottom: 8px !important;
+    :global(.px-textarealabel) {
+      margin-right: 8px;
+      display: flex;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+    }
+  }
+
+  :global(.px-gender) {
+    width: 30%;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px;
+    height: 20px;
+    display: flex;
+    :global(.px-genderlabel1) {
+      margin-left: 10px;
+    }
+    :global(.px-genderlabel2) {
+      margin-left: 20px;
+    }
+  }
+
+  :global(.px-checkmeout) {
+    width: 70%;
+    padding-left: 10%;
+    padding-bottom: 0px;
+    display: flex;
+    margin-bottom: 0px !important;
+    height: 25px;
+    :global(.px-checkoutlabel) {
+      margin-right: 10px;
+      display: flex;
+    }
+  }
+
+  :global(.px-btn-register) {
+    margin-left: 42%;
+    margin-top: 5px;
+  }
+  .px-toptext {
+    text-align: left;
+    color: #000000;
+    padding-left: 10%;
+    font-size: 12px;
+  }
+  .px-text-danger {
+    color: #dc3545;
+    text-align: left;
+    font-size: 14px;
+    padding-left: 10%;
+  }
+  .px-account {
+    padding-top: 20px;
+    text-align: center;
+  }
+  .px-gendertitle {
+    display: flex;
+    margin-left: 32%;
+  }
+  .asterick {
+    color: #ff0000;
+  }
+  .passwordhint {
+    font-size: 12px;
+  }
+  .labelgroup {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+:global(body) {
+  overflow-x: hidden;
+  font-size: 16px;
+}
+:global(.px-heading) {
+  padding-top: 25px;
+  .px-signup {
+    color: rgb(216, 210, 210);
+    padding-bottom: 5px;
+    padding-top: 15px;
+    text-align: center;
+  }
+}

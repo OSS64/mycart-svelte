@@ -3,7 +3,7 @@ import { render } from "@testing-library/svelte";
 import SignIn from "./login.svelte";
 import { Utility } from "./../../shared/utilities/utility";
 import { vi } from "vitest";
-import type { User } from "../../app-constants/types";
+import type { User } from "../../models/types";
 
 describe("Login component", () => {
   test("should confirm form is visible ", async () => {

@@ -1,21 +1,11 @@
 <script lang="ts">
-  import {
-    Form,
-    FormGroup,
-    Input,
-    Label,
-    Button,
-    FormText,
-    Modal,
-    ModalBody,
-    ModalHeader,
-    ModalFooter,
-  } from "sveltestrap";
+  import { Form, FormGroup, Input, Label, Button, FormText } from "sveltestrap";
   import { Col, Row } from "sveltestrap";
   import { navigate, Link, Router } from "svelte-routing";
   import { Utility } from "../../shared/utilities/utility";
-  import { AppConstants } from "../../app-constants/app-config";
-  import { onDestroy } from "svelte";
+
+  import Errormodal from "../../shared/utilities/errormodal.svelte";
+  import { callRegisterApi } from "../../services/users.services";
 
   /**
    * Svelte Reactive Variables, used to display the validation message
@@ -172,65 +162,29 @@
   const signupData = {};
 
   /**
-   * Used to check API response Status Code for error handling.
-   */
-  let resStatus = 0;
-
-  /**
-   * Flag to display Toast Message.
-   */
-  let isOpen: boolean = false;
-  let toastMessage: string = "";
-  let toggle = () => {
-    isOpen = !isOpen;
-  };
-
-  /**
-   * used for timer counter, to display message.
-   */
-  let counter: number;
-  let interval: string | number | NodeJS.Timer;
-
-  /**
-   * Concat timer in toastmessage until timer reaches to 0.
-   * At 0 sec, timer get stopped.
-   */
-  const startTimer = (msg: string) => {
-    if (!counter) {
-      stopTimer();
-    } else {
-      toastMessage = `${msg}.
-        You will be redirected to login page after ${counter} sec${
-        counter === 1 ? "" : "s"
-      }.`;
-      counter -= 1;
-    }
-  };
-
-  /**
-   * Trigger timer at an interval of 1 sec.
-   */
-  const showTimerMessage = (msg: string) => {
-    if (!interval) {
-      counter = 5;
-      interval = setInterval(startTimer, 1000, msg);
-    }
-  };
-
-  /**
    * Clear interval, to stop memory leak.
    * Then navigate to login page.
    */
   const stopTimer = () => {
-    clearInterval(interval);
-    interval = null;
+    displayErrorModal = false;
     navigate("/login");
   };
 
   /**
-   * One of Life Cycle Hooks implementation.
+   * props required to pass in ErrorModal
    */
-  onDestroy(stopTimer);
+  let displayErrorModal: boolean = false;
+  let errorModalHeader: string = "Register API Response";
+  let errorModalMessage: string;
+  let showTimer: boolean = false;
+
+  /**
+   * it is a dispatchable method, called from ErrorModal, on closing the modal.
+   */
+  let closeErrorModal = () => {
+    displayErrorModal = false;
+    showTimer = false;
+  };
 
   /**
    * call asynchronous API call.
@@ -238,49 +192,21 @@
    */
   const submitForm = async () => {
     /**
-     * Populate Fetch Header Requests.
-     */
-    const requestHeader: RequestInit = {
-      method: "POST",
-      body: JSON.stringify(signupData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    /**
      * Perform Fetch API call for registration
      */
-    try {
-      await fetch(AppConstants.apiBase + "/register", requestHeader)
-        .then((response) => {
-          isOpen = true;
-          resStatus = response.status;
-          return response.json();
-        })
-        .then((data) => {
-          switch (resStatus) {
-            case 200:
-            case 400:
-            case 404:
-            default:
-              toastMessage = data.message;
-              break;
 
-            case 201:
-              toastMessage = data.message;
-              showTimerMessage(data.message);
-              break;
-          }
-        })
-        .catch((error) => {
-          isOpen = true;
-          toastMessage = `Unable to connect API.
-          Internet Connection Issue.
-          ${error}`;
-        });
-    } catch (error) {
-      console.log("catch error:", error);
+    let result = await callRegisterApi(signupData);
+    console.log(result);
+    displayErrorModal = true;
+    if (result.statusCode) {
+      if (result.statusCode === 201) {
+        errorModalMessage = result.message;
+        showTimer = true;
+      } else {
+        errorModalMessage = `Error : ${result.message}`;
+      }
+    } else {
+      errorModalMessage = "Please refresh the page and try again.";
     }
   };
 
@@ -288,7 +214,7 @@
    * Form submit method. Validate form fields value and submit if there is no error.
    * @param e - SUbmit Event
    */
-  export const onSubmit = (e: Event) => {
+  export const onSubmit = () => {
     /**
      * Password Validation
      */
@@ -376,15 +302,16 @@
 </script>
 
 <div class="px-container">
-  <Modal {isOpen} {toggle}>
-    <ModalHeader {toggle}>Register Response | Status:{resStatus}</ModalHeader>
-    <ModalBody>
-      {toastMessage}
-    </ModalBody>
-    <ModalFooter>
-      <Button color="secondary" on:click={toggle}>Cancel</Button>
-    </ModalFooter>
-  </Modal>
+  {#if displayErrorModal}
+    <Errormodal
+      header={errorModalHeader}
+      message={errorModalMessage}
+      open={displayErrorModal}
+      timer={showTimer}
+      on:closeModal={closeErrorModal}
+      on:endTimer={stopTimer}
+    />
+  {/if}
   <Row>
     <Col lg={{ size: 6, order: 2, offset: 3 }}>
       <FormText class="px-heading">

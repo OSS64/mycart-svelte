@@ -10,6 +10,7 @@
   import Coupon from "../coupon/coupon.svelte";
   import { fade, fly } from "svelte/transition";
   import { couponStore } from "./../../store/coupon.store";
+  import { Router, Link } from "svelte-routing";
 
   let payableAmount = 0;
   let selectedCoupon = "";
@@ -131,13 +132,21 @@
       <div transition:fly class="shadow cart-item">
         <div class="row">
           <div class="image col-lg-3">
-            <img width="200" src={item.imageUrl} alt="laptop" />
+            <Router>
+              <Link to={"/details?productId=" + item?._id}>
+                <img width="200" src={item.imageUrl} alt="laptop" />
+              </Link>
+            </Router>
           </div>
           <div class="col-lg-6">
             <div class="details">
               <span class="cart-item-brand">{item.features.brand}</span>
               <p class="cart-item-model">
-                {item.features.modelName}
+                <Router>
+                  <Link to={"/details?productId=" + item?._id}>
+                    {item.features.modelName}
+                  </Link>
+                </Router>
               </p>
               <p class="cart-item-desc">
                 {item.shortDescription}

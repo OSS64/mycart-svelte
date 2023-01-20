@@ -1,4 +1,5 @@
 import { AppConstants } from "../../app-constants/app-config";
+import type { ApiError } from "../../models/types";
 import { cart } from "../../store/cart.store";
 
 const formatter = new Intl.NumberFormat(AppConstants.formatterConfig.locale, {
@@ -119,5 +120,51 @@ export const Utility = {
     if (cartItems && cartItems.length > 0) {
       cart.set(cartItems);
     }
+  },
+
+  /**
+   * Return default message for different API
+   */
+  getDefaultMessage: (callFrom: string) => {
+    let message: string;
+    switch (callFrom) {
+      case "product":
+        message = "Product not found. Check your product id.";
+        break;
+
+      default:
+        message = "API not called. Bad Data.";
+        break;
+    }
+    return message;
+  },
+
+  /**
+   * Return Error Messages
+   */
+  getErrorMessage: (result: ApiError, callFrom: string) => {
+    let statusCode: number;
+    let message: string;
+
+    if (result.hasOwnProperty("statusCode")) {
+      statusCode = result.statusCode;
+
+      switch (statusCode) {
+        case 400:
+        case 401:
+        case 404:
+        case 200:
+        case 201:
+          message = result.message;
+          break;
+
+        default:
+          message = Utility.getDefaultMessage(callFrom);
+          break;
+      }
+    } else {
+      message = "Failed to fire API call. Check your network.";
+    }
+    return { message: message };
   },
 };

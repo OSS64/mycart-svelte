@@ -10,8 +10,9 @@
     Figure,
     Image,
   } from "sveltestrap";
-  import { navigate } from "svelte-routing";
-  import type { Product } from "./../../app-constants/types";
+  import { navigate, Router, Link } from "svelte-routing";
+  import type { Product } from "../../models/types";
+  import { Utility } from "../../shared/utilities/utility";
   export let product: Product;
 </script>
 
@@ -20,18 +21,25 @@
     <CardTitle>{product?.features?.brand}</CardTitle>
   </CardHeader>
   <CardBody>
-    <Figure>
-      <Image
-        fluid
-        alt="product-image"
-        src={product?.imageUrl}
-        class="card-img"
-      />
-    </Figure>
+    <Router>
+      <Link to={"/details?productId=" + product?._id}>
+        <Figure>
+          <Image
+            fluid
+            alt="product-image"
+            src={product?.imageUrl}
+            class="card-img"
+          />
+        </Figure>
+      </Link>
+    </Router>
+
     <CardSubtitle class="px-card-subtitle"
       >{product?.features?.modelName}</CardSubtitle
     >
-    <CardSubtitle class="px-card-subtitle">{"₹" + product?.price}</CardSubtitle>
+    <CardSubtitle class="px-card-subtitle"
+      >{Utility.formatNumber.format(+product?.price)}</CardSubtitle
+    >
     <CardText class="card-text">
       {product?.shortDescription}
     </CardText>
