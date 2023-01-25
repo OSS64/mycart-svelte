@@ -18,7 +18,7 @@ const requesteqHeader = () => {
 const fetchCategories = async () => {
 	try {
 		const response = await fetch(
-			AppConstants.apiBase + '/categories',
+			AppConstants.apiBase + '/categoriesX',
 			requesteqHeader()
 		);
 		return await response.json();
@@ -41,7 +41,7 @@ export const getCategories = async () => {
 			snackbarStore.set({
 				isOpen: true,
 				message: result.message,
-				title: result.error
+				title: result.error,
 			})
 			return Utility.getErrorMessage(result, 'category');
 		}
