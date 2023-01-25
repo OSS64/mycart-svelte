@@ -1,0 +1,34 @@
+.app-navbar {
+    :global(li.nav-item.mlmr-3:not(:last-child)) {
+        margin: 0 15px;
+    }
+    #lblCartCount {
+        font-size: 12px;
+        background: #ff0000;
+        color: #fff;
+        padding: 1px 5px;
+        vertical-align: top;
+        margin-left: -10px;
+    }
+    .badge {
+        padding-left: 9px;
+        padding-right: 9px;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        border-radius: 9px;
+    }
+}
+:global(.stickyAtTop) {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    
+}
+.px-icn {
+    width: 15px;
+    height: 15px;
+}
+:global(.confirm-dialog) {
+   position: fixed !important;
+}

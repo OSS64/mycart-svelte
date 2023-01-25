@@ -1,0 +1,188 @@
+{
+    "info": {
+        "_postman_id": "0306e9d9-b55d-e493-4e65-f261cafadd0c",
+        "name": "Product API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Get All Products",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzljMTNmMjMzNTAyMjc5ODIzYjQzYjYiLCJpYXQiOjE2NzE1OTgyNzgsImV4cCI6MTY3MTg1NzQ3OH0.0uLoE8uK_r-kImHQGi59vBiMVJChwHPMus1pztNUSKA"
+                    },
+                    {
+                        "key": "token",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhkOTJkNjAwYzFiNzIzMjdiNTE2MWQiLCJpYXQiOjE2NzA5OTYzNDgsImV4cCI6MTY3MTI1NTU0OH0.3GGmcxoG8zuHeiHrjqT2La8iC7Ejj3dIbC_7yhSW4-k",
+                        "disabled": true
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:5001/products"
+            },
+            "response": []
+        },
+        {
+            "name": "Get a product by Id",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzljMTNmMjMzNTAyMjc5ODIzYjQzYjYiLCJpYXQiOjE2NzE3NzQyMTEsImV4cCI6MTY3MjAzMzQxMX0.bpZY4D1wv2Fl2QTZ-BOs05qOyxT3IOv1h6O3CCS2-Wk"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:5001/products/6395e304ddbedf1ff5cd1941"
+            },
+            "response": []
+        },
+        {
+            "name": "Delete a product",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzljMTNmMjMzNTAyMjc5ODIzYjQzYjYiLCJpYXQiOjE2NzE3ODE5MjEsImV4cCI6MTY3MjA0MTEyMX0.LjCSx5tWX1dQ0PVzoskRERwApgp9dRzT-JpTPtT_A1A"
+                    },
+                    {
+                        "key": "token",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhkOTJkNjAwYzFiNzIzMjdiNTE2MWQiLCJpYXQiOjE2NzA5OTYzNDgsImV4cCI6MTY3MTI1NTU0OH0.3GGmcxoG8zuHeiHrjqT2La8iC7Ejj3dIbC_7yhSW4-k",
+                        "disabled": true
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "localhost:5001/products/6395e03ce7a6eee04adc086b"
+            },
+            "response": []
+        },
+        {
+            "name": "Save product",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzljMTNmMjMzNTAyMjc5ODIzYjQzYjYiLCJpYXQiOjE2NzE3ODE5MjEsImV4cCI6MTY3MjA0MTEyMX0.LjCSx5tWX1dQ0PVzoskRERwApgp9dRzT-JpTPtT_A1A"
+                    },
+                    {
+                        "key": "token",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhkOTJkNjAwYzFiNzIzMjdiNTE2MWQiLCJpYXQiOjE2NzA5OTU2NzIsImV4cCI6MTY3MTI1NDg3Mn0.l3EiJAnlsFaCT8r8Tqq_xPKRvvb6md5J0Fyr-MRPnbc",
+                        "disabled": true
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": " {\r\n        \"productName\": \"Demo Product 2022\",\r\n        \"category\": \"Laptop Demo\",\r\n        \"currencyCode\": \"INR\",\r\n        \"price\": 39990,\r\n        \"shortDescription\": \"Redmi Book Pro Intel Core i5 11th Gen H Series 15.6-inch(39.62 cms) Thin and Light Laptop (8GB/512 GB SSD/Windows 10 Home) (Charcoal Gray, 1.8 kg, with MS Office)\",\r\n        \"description\": \"Processor: 11th Gen Intel Tiger Lake Core i5-11300H processor| Speed: 3.1 GHz(base) - 4.4 GHz(max) | 4 cores | 8 Threads | 8 MB Cache | Intel UHD graphics \",\r\n        \"features\": {\r\n            \"brand\": \"Redmi\",\r\n            \"modelName\": \"RedmiBook 15 Pro\",\r\n            \"screenSize\": \"39.62 Centimetres\",\r\n            \"colour\": \"Charcoal Gray\",\r\n            \"cpuModel\": \"Core i5\",\r\n            \"ramMemory\": \"8 GB\",\r\n            \"operatingSystem\": \"Windows 10 Home\",\r\n            \"specialFeature\": \"Anti Glare Screen, Light Weight, Thin\",\r\n            \"graphicsCard\": \"Integrated\",\r\n            \"cpuSpeed\": \"3.1 GHz\"\r\n        },\r\n        \"imageUrl\": \"https://m.media-amazon.com/images/I/41HskYFMWYL._SS40_.jpg\",\r\n        \"videoUrl\": \"https://www.amazon.in/vdp/180a30994dc6456dbf2b3f871d6900af?ref=dp_vse_ibvc0\"\r\n    }"
+                },
+                "url": "localhost:5001/products"
+            },
+            "response": []
+        },
+        {
+            "name": "Product Search",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzljMTNmMjMzNTAyMjc5ODIzYjQzYjYiLCJpYXQiOjE2NzE1OTgyNzgsImV4cCI6MTY3MTg1NzQ3OH0.0uLoE8uK_r-kImHQGi59vBiMVJChwHPMus1pztNUSKA"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"searchText\": \"demo\"\n}"
+                },
+                "url": "http://127.0.0.1:5001/products/search"
+            },
+            "response": []
+        },
+        {
+            "name": "PDF Export",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzljMTNmMjMzNTAyMjc5ODIzYjQzYjYiLCJpYXQiOjE2NzE1OTgyNzgsImV4cCI6MTY3MTg1NzQ3OH0.0uLoE8uK_r-kImHQGi59vBiMVJChwHPMus1pztNUSKA"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"perPage\": \"10\",\n\t\"offSet\": \"1\"\n}"
+                },
+                "url": "http://127.0.0.1:5001/products/pdf"
+            },
+            "response": []
+        },
+        {
+            "name": "CSV Export",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzljMTNmMjMzNTAyMjc5ODIzYjQzYjYiLCJpYXQiOjE2NzE1OTgyNzgsImV4cCI6MTY3MTg1NzQ3OH0.0uLoE8uK_r-kImHQGi59vBiMVJChwHPMus1pztNUSKA"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"perPage\": \"10\",\n\t\"offSet\": \"1\"\n}"
+                },
+                "url": "localhost:5001/products/csv"
+            },
+            "response": []
+        },
+        {
+            "name": "Update Product",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzljMTNmMjMzNTAyMjc5ODIzYjQzYjYiLCJpYXQiOjE2NzE3ODE5MjEsImV4cCI6MTY3MjA0MTEyMX0.LjCSx5tWX1dQ0PVzoskRERwApgp9dRzT-JpTPtT_A1A"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": " {\r\n        \"productName\": \"New Product Demos\",\r\n        \"category\": \"Laptop Demo\",\r\n        \"currencyCode\": \"INR\",\r\n        \"price\": 39990,\r\n        \"shortDescription\": \"Redmi Book Pro Intel Core i5 11th Gen H Series 15.6-inch(39.62 cms) Thin and Light Laptop (8GB/512 GB SSD/Windows 10 Home) (Charcoal Gray, 1.8 kg, with MS Office)\",\r\n        \"description\": \"Processor: 11th Gen Intel Tiger Lake Core i5-11300H processor| Speed: 3.1 GHz(base) - 4.4 GHz(max) | 4 cores | 8 Threads | 8 MB Cache | Intel UHD graphics \",\r\n        \"features\": {\r\n            \"brand\": \"Redmi\",\r\n            \"modelName\": \"RedmiBook 15 Pro\",\r\n            \"screenSize\": \"39.62 Centimetres\",\r\n            \"colour\": \"Charcoal Gray\",\r\n            \"cpuModel\": \"Core i5\",\r\n            \"ramMemory\": \"8 GB\",\r\n            \"operatingSystem\": \"Windows 10 Home\",\r\n            \"specialFeature\": \"Anti Glare Screen, Light Weight, Thin\",\r\n            \"graphicsCard\": \"Integrated\",\r\n            \"cpuSpeed\": \"3.1 GHz\"\r\n        },\r\n        \"imageUrl\": \"https://m.media-amazon.com/images/I/41HskYFMWYL._SS40_.jpg\",\r\n        \"videoUrl\": \"https://www.amazon.in/vdp/180a30994dc6456dbf2b3f871d6900af?ref=dp_vse_ibvc0\"\r\n    }"
+                },
+                "url": "localhost:5001/products/6395e03ce7a6eee04adc086b"
+            },
+            "response": []
+        }
+    ]
+}

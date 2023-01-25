@@ -1,0 +1,32 @@
+{
+  "name": "fastify-api",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --es-module-specifier-resolution=node ./src/server.js",
+    "dev": "nodemon --es-module-specifier-resolution=node ./src/server.js"
+  },
+  "author": "Abhishek Sen",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/cors": "^7.0.0",
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.6",
+    "dotenv": "^16.0.2",
+    "fastify": "^3.19.1",
+    "fastify-auth": "^1.1.0",
+    "fastify-swagger": "^4.8.3",
+    "json2csv": "^5.0.7",
+    "jsonwebtoken": "^9.0.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.28",
+    "mongoose": "^6.6.5",
+    "moongoose": "^0.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
