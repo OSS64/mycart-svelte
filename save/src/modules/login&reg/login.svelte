@@ -2,10 +2,10 @@
 	import { navigate, Link, Router } from 'svelte-routing';
 	import { Button, Form, FormGroup, Input } from 'sveltestrap';
 	import { callLoginApi } from '../../services/users.services';
-	import Errormodal from '../../shared/utilities/errormodal.svelte';
+	// import Errormodal from '../../shared/utilities/errormodal.svelte';
 	import { Utility } from '../../shared/utilities/utility';
-	import { authStore } from '../../store/auth.store';
-	import { snackbarStore } from '../../store/snackbar.store';
+	// import { authStore } from '../../store/auth.store';
+	// import { ErrorStore } from '../../store/errormodal.store';
 	let email = '';
 	let password = '';
 	/**

@@ -1,13 +1,13 @@
 import { writable } from 'svelte/store';
 
- interface ISnackBarStore {
+ interface InErrorStore {
 	title?:string
 	message?:string
 	isOpen:boolean
 	timer?:boolean,
 	endTimerRedirectUrl?:string
 }
-export const snackbarStore = writable<ISnackBarStore>({
+export const ErrorStore = writable<InErrorStore>({
 	title: '',
 	message: '',
 	isOpen: false,

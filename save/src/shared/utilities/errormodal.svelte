@@ -8,7 +8,7 @@
 		ModalFooter,
 		ModalHeader,
 	} from 'sveltestrap';
-	import { snackbarStore } from '../../store/snackbar.store';
+	import { ErrorStore } from '../../store/errormodal.store';
 	/**
 	 * props received from another component.
 	 */
@@ -19,8 +19,8 @@
 	let endTimerRedirectUrl: string = '';
 	const toggle = () => (open = !open);
 	onMount(() => {
-		snackbarStore.subscribe((v: any) => {
-			console.log('snackbarStore.subscribe', v);
+		ErrorStore.subscribe((v: any) => {
+			console.log('ErrorStore.subscribe', v);
 			open = v?.isOpen;
 			header = v?.title;
 			message = v?.message;
@@ -31,8 +31,8 @@
 			}
 		});
 	});
-	const hideSnackbar = () => {
-		snackbarStore.set({ isOpen: false, title: '', message: '' });
+	const hideerrormodal = () => {
+		ErrorStore.set({ isOpen: false, title: '', message: '' });
 	};
 	/**
 	 * used for timer counter, to display message.
@@ -71,13 +71,13 @@
 		if(endTimerRedirectUrl){
 			navigate(endTimerRedirectUrl)
 		}
-		hideSnackbar();
+		hideerrormodal();
 	};
 	/**
 	 * If timer is true, then countdown message will display.
 	 */
 </script>
-<Modal isOpen={open} {toggle} on:close={hideSnackbar}>
+<Modal isOpen={open} {toggle} on:close={hideerrormodal}>
 	<ModalHeader {toggle}>{header}</ModalHeader>
 	<ModalBody>
 		{message}
@@ -86,44 +86,3 @@
 		<Button color="secondary" on:click={toggle}>Cancel</Button>
 	</ModalFooter>
 </Modal>
-<!-- <script lang="ts">
-	import { onMount } from 'svelte';
-	import {
-		Button,
-		Modal,
-		ModalBody,
-		ModalFooter,
-		ModalHeader,
-	} from 'sveltestrap';
-	import { snackbarStore } from '../../store/snackbar.store';
-	let isOpen = false;
-	let title = '';
-	let message = '';
-	onMount(() => {
-		snackbarStore.subscribe((v: any) => {
-			console.log('snackbarStore.subscribe', v);
-			isOpen = v?.isOpen;
-			title = v?.title;
-			message = v?.message;
-		});
-	});
-	const hideSnackbar = () => {
-		snackbarStore.set({ isOpen: false, title: '', message: '' });
-	};
-</script>
-<Modal
-	{isOpen}
-	toggle={() => {
-		hideSnackbar();
-	}}
->
-	<ModalHeader toggle={hideSnackbar}>{title}</ModalHeader>
-	<ModalBody>
-		{message || 'Please wait...'}
-	</ModalBody>
-	<ModalFooter>
-		<Button color="secondary" on:click={hideSnackbar}>Cancel</Button>
-	</ModalFooter>
-</Modal>
-<style>
-</style> -->

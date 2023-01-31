@@ -5,7 +5,7 @@
 	import { Utility } from '../../shared/utilities/utility';
 	import Errormodal from '../../shared/utilities/errormodal.svelte';
 	import { callRegisterApi } from '../../services/users.services';
-	import { snackbarStore } from '../../store/snackbar.store';
+	// import { ErrorStore } from '../../store/errormodal.store';
 	/**
 	 * Svelte Reactive Variables, used to display the validation message
 	 * on update the signup form elements.

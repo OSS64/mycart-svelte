@@ -11,7 +11,7 @@
 	import { Utility } from './shared/utilities/utility';
 	import { authStore } from './store/auth.store';
 	import Signup from './modules/signup/signup.svelte';
-	import SnackBar from './shared/utilities/SnackBar.svelte';
+	import Errormodal from './shared/utilities/errormodal.svelte';
 
 	export const url = '';
 	/**
@@ -74,7 +74,7 @@
 		</Layout>
 	</Route>
 </Router>
-<SnackBar />
+<Errormodal />
 
 <style lang="scss">
 	@import './app.scss';

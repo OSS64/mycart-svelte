@@ -1,7 +1,7 @@
 import { AppConstants } from '../app-constants/app-config';
 import { Utility } from '../shared/utilities/utility';
 import { authStore } from '../store/auth.store';
-import { snackbarStore } from '../store/snackbar.store';
+import { ErrorStore } from '../store/errormodal.store';
 /**
  * Header's data required for register and login API call
  * @param formData - JSON object required to pass in body during API call.
@@ -42,7 +42,7 @@ export const callRegisterApi = async (form: {}) => {
 	let res = Utility.getErrorMessage(result, 'register');
 	if (result.statusCode) {
 		if (result.statusCode === 201) {
-			snackbarStore.set({
+			ErrorStore.set({
 				isOpen: true,
 				endTimerRedirectUrl: '/login',
 				message: result.message,
@@ -50,14 +50,14 @@ export const callRegisterApi = async (form: {}) => {
 				title: 'Success',
 			});
 		} else {
-			snackbarStore.set({
+			ErrorStore.set({
 				isOpen: true,
 				message: `Error : ${result.message}`,
 				title: 'Failed',
 			});
 		}
 	} else {
-		snackbarStore.set({
+		ErrorStore.set({
 			isOpen: true,
 			message: 'Please refresh the page and try again.',
 			title: 'Failed',
@@ -89,7 +89,7 @@ const fetchLogin = async (data: {}) => {
 export const callLoginApi = async (form: {}) => {
 	const result = await fetchLogin(form);
 	if (result.hasOwnProperty('user')) {
-		snackbarStore.set({
+		ErrorStore.set({
 			isOpen: true,
 			timer: true,
 			message: 'You have logged in successfully.',
@@ -109,7 +109,7 @@ export const callLoginApi = async (form: {}) => {
 		});
 		return result;
 	} else {
-		snackbarStore.set({
+		ErrorStore.set({
 			isOpen: true,
 			message: `Error : ${result.message}`,
 			title: 'Failed',

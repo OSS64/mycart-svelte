@@ -1,8 +1,7 @@
 import { AppConstants } from '../app-constants/app-config';
 import { Utility } from '../shared/utilities/utility';
 import { categoryStore, prodStore } from '../store/product.store';
-import { snackbarStore } from '../store/snackbar.store';
-
+import { ErrorStore } from '../store/errormodal.store';
 /**
  * Header's data required for category API call
  * @returns - a object, having header property.
@@ -10,15 +9,18 @@ import { snackbarStore } from '../store/snackbar.store';
 const requesteqHeader = () => {
 	return { headers: { Authorization: Utility.getToken() } };
 };
-
 /**
  * Trigger categories API
  * @returns - a Promise
  */
 const fetchCategories = async () => {
+	// check token 
+	if (!Utility.getToken()) {
+		return 
+	}
 	try {
 		const response = await fetch(
-			AppConstants.apiBase + '/categoriesX',
+			AppConstants.apiBase + '/categories',
 			requesteqHeader()
 		);
 		return await response.json();
@@ -26,7 +28,6 @@ const fetchCategories = async () => {
 		return error;
 	}
 };
-
 /**
  * Call categories API
  * @returns - a Promise
@@ -38,7 +39,7 @@ export const getCategories = async () => {
 			categoryStore.set(result.categories);
 			return result.categories;
 		} else {
-			snackbarStore.set({
+			ErrorStore.set({
 				isOpen: true,
 				message: result.message,
 				title: result.error,
@@ -47,12 +48,10 @@ export const getCategories = async () => {
 		}
 	}
 };
-
 /**
  * Header's data required for productList API call
  * @returns - a object, to be used as header in API call
  */
-
 const productListReqHeader = () => {
 	return {
 		method: 'POST',
@@ -63,7 +62,6 @@ const productListReqHeader = () => {
 		},
 	};
 };
-
 /**
  * Trigger productList API
  * @returns - a Promise
@@ -79,7 +77,6 @@ const fetchProductList = async () => {
 		return error;
 	}
 };
-
 /**
  * Call productList API call.
  * @returns - a Promise
@@ -89,7 +86,7 @@ export const getProductList = async () => {
 	if (Array.isArray(result)) {
 		return result;
 	} else {
-		snackbarStore.set({
+		ErrorStore.set({
 			isOpen: true,
 			message: result.message,
 			title: result.error
@@ -97,13 +94,11 @@ export const getProductList = async () => {
 		return Utility.getErrorMessage(result, 'productList');
 	}
 };
-
 /**
  * Product Detail API Call
  * @param id - product id
  * @returns - a Promise
  */
-
 const fetchProduct = async (id: string) => {
 	try {
 		const response = await fetch(
@@ -115,7 +110,6 @@ const fetchProduct = async (id: string) => {
 		return error;
 	}
 };
-
 /**
  * call products/:id API to get data for a particular product.
  * @param id - a product id
@@ -123,11 +117,10 @@ const fetchProduct = async (id: string) => {
  */
 export const getProduct = async (id: string) => {
 	const result = await fetchProduct(id);
-
 	if (result.hasOwnProperty('features')) {
 		return result;
 	} else {
-		snackbarStore.set({
+		ErrorStore.set({
 			isOpen: true,
 			message: result.message,
 			title: result.error
