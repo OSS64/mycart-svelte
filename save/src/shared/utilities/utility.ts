@@ -100,9 +100,9 @@ export const Utility = {
   updateImageUrl: (result: any[]) => {
     return result.map((item) => {
       let url = "";
-      if (item.imageUrl.indexOf("https:") < 0) {
+      if (item?.imageUrl?.indexOf("https:") < 0) {
         url = AppConstants.amazonNoImage;
-      } else if (item.imageUrl.indexOf("._SS40_.") >= 0) {
+      } else if (item?.imageUrl?.indexOf("._SS40_.") >= 0) {
         url = item.imageUrl.replace(/._SS40_./gi, "._SS500_.");
       }
       item.imageUrl = url;

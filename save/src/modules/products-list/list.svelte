@@ -52,6 +52,7 @@
    */
   const getBrandsAndProducts = (result: any) => {
     products = result;
+    console.log("🚀 ~ file: list.svelte:55 ~ getBrandsAndProducts ~ result", result)
     categoryHasData = products?.length > 0;
     renderData = products;
     brand = populateBrands(products);
