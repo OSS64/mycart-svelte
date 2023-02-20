@@ -1,0 +1,38 @@
+.px-container {
+  background: url("./../content/images/signup.png") no-repeat center center
+    fixed;
+  min-height: 100vh;
+}
+
+.content-signup {
+  .px-toptext {
+    text-align: left;
+    color: #000000;
+    padding-left: 10%;
+    font-size: 12px;
+  }
+  .px-text-danger {
+    color: #dc3545;
+    text-align: left;
+    font-size: 14px;
+    padding-left: 10%;
+  }
+  .px-account {
+    padding-top: 20px;
+    text-align: center;
+  }
+  .px-gendertitle {
+    display: flex;
+    margin-left: 32%;
+  }
+  .asterick {
+    color: #ff0000;
+  }
+  .passwordhint {
+    font-size: 12px;
+  }
+  .labelgroup {
+    display: flex;
+    justify-content: space-between;
+  }
+}

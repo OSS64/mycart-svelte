@@ -1,0 +1,20 @@
+/* @import "./swiper.scss"; */
+.descriptionDetails {
+  margin-top: 20px;
+  text-align: left;
+  
+}
+
+.noProduct {
+  min-height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .no-product-inner {
+    text-align: center;
+    h1 {
+      font-size: 19px;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.shopping-cart {
+  display: grid;
+  grid-template-columns: repeat(1);
+  justify-content: center;
+  gap: 25px;
+  margin: 30px 20px;
+  .cart-item {
+    padding: 20px;
+    margin: 20px 40px;
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+      .cart-item-brand {
+        font-size: medium;
+        color: #000000;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .cart-item-model {
+        font-size: medium;
+        color: #5a5a5a;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .cart-item-desc {
+        font-size: medium;
+        color: #000000;
+        text-align: justify;
+      }
+    }
+    .price {
+      display: flex;
+      flex-direction: column;
+      font-weight: bold;
+      align-items: end;
+      .buttons {
+        display: flex;
+        gap: 5px;
+        font-size: 16px;
+        align-items: center;
+        margin-left: 45px;
+      }
+    }
+  }
+  .total {
+    color: #000000;
+    text-align: right;
+    font-weight: bold;
+    margin: 0 40px 0px 10px;
+    .discount {
+      font-size: 12px;
+      font-style: italic;
+      color: cadetblue;
+    }
+  }
+  .btns {
+    display: flex;
+    gap: 0px 10px;
+    justify-content: right;
+    margin: 10px 40px 0px 10px;
+    .coupon {
+      display: inline-block;
+    }
+  }
+  .message {
+    font-size: 20px;
+    margin: 150px 0;
+    font-weight: bold;
+  }
+  .cart-item-price{
+    color: #000000;
+    font-weight: bold;
+  }
+  
+}
