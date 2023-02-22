@@ -3,6 +3,7 @@
 	export let selectedBrand = [];
 	export let brands = [];
 	export let price = '';
+	export let category = '';
 	export let pricedata = [];
 	const dispatch = createEventDispatcher();
 	$: {
@@ -12,11 +13,14 @@
 </script>
 
 <div class="facets">
-	{#if selectedBrand.length || (price && price !== 'All')}
+	{#if category?.length}
 		<div class="filterHeading">
 			<p>Applied Filter</p>
 		</div>
 		<div class="container">
+			<div class="checkBoxBrand">
+				<label for={category}><b>{category}:</b></label>
+			</div>
 			{#each selectedBrand as el}
 				<div class="checkBoxBrand">
 					<label for={el}>{el}</label>

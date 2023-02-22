@@ -27,7 +27,7 @@
 	 * Used to check whether used category has products or not.
 	 * if there is no product, then no product text will display.
 	 */
-	const category = new URLSearchParams(window.location.search).get('category');
+	let category = new URLSearchParams(window.location.search).get('category');
 	let categoryHasData = false;
 	/**
 	 * execute callOnLoad callback as the component has been mounted to the DOM.
@@ -35,7 +35,7 @@
 	export const callOnLoad = async () => {
 		loading = true;
 		error = false;
-		let result = await getProductList(1, 5, category);
+		let result = await getProductList(1, 5, category || '');
 		if (result.hasOwnProperty('message')) {
 			error = true;
 		} else {
@@ -167,6 +167,7 @@
 				bind:brands={brand}
 				bind:price
 				bind:pricedata
+				bind:category
 				on:filter={filterFunc}
 			/>
 		</div>
