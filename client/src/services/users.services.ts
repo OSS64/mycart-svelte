@@ -1,5 +1,5 @@
+import { navigate } from 'svelte-routing';
 import { AppConstants } from '../app-constants/app-config';
-import { ErrorStore } from '../store/errormodal.store';
 import { Utility } from '../shared/utilities/utility';
 import { authStore } from '../store/auth.store';
 import { openErrorMessage } from './error.service';
@@ -10,13 +10,35 @@ import { openErrorMessage } from './error.service';
  * @returns - Header data for API call
  */
 const requestHeader = (formData: {}) => {
-	return {
-		method: 'POST',
-		body: JSON.stringify(formData),
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	};
+  return {
+    method: 'POST',
+    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+};
+const requesteqHeader = () => {
+  return { headers: { Authorization: Utility.getToken() } };
+};
+const fetchProfile = async () => {
+  // check token
+  if (!Utility.getToken()) {
+    return;
+  }
+  try {
+    const response = await fetch(
+      AppConstants.apiBase + '/profile',
+      requesteqHeader()
+    );
+    return await response.json();
+  } catch (error) {
+    return error;
+  }
+};
+export const getProfile = async () => {
+  const result = await fetchProfile();
+  return result;
 };
 /**
  * Trigger register API call
@@ -24,15 +46,15 @@ const requestHeader = (formData: {}) => {
  * @returns - Promise
  */
 const fetchRegister = async (data: {}) => {
-	try {
-		const response = await fetch(
-			AppConstants.apiBase + '/register',
-			requestHeader(data)
-		);
-		return await response.json();
-	} catch (error) {
-		return error;
-	}
+  try {
+    const response = await fetch(
+      AppConstants.apiBase + '/register',
+      requestHeader(data)
+    );
+    return await response.json();
+  } catch (error) {
+    return error;
+  }
 };
 /**
  * Call register API asynchronously
@@ -40,45 +62,34 @@ const fetchRegister = async (data: {}) => {
  * @returns - a Promise
  */
 export const callRegisterApi = async (form: {}, isLogmeIn: boolean) => {
-	const result = await fetchRegister(form);
-	let res = Utility.getErrorMessage(result, 'register');
-	if (result.statusCode) {
-		if (result.statusCode === 201) {
-			if (isLogmeIn) {
-				// openErrorMessage({
-				// 	isOpen: true,
-				// 	message: result.message,
-				// 	title: 'Success',
-				// });
-				await callLoginApi({
-					email: form['email'],
-					password: form['password'],
-				});
-			}
-			// else {
-			// 	openErrorMessage({
-			// 		isOpen: true,
-			// 		endTimerRedirectUrl: '/login',
-			// 		message: result.message,
-			// 		timer: true,
-			// 		title: 'Success',
-			// 	});
-			// }
-		} else {
-			openErrorMessage({
-				isOpen: true,
-				message: `Error : ${result.message}`,
-				title: 'Failed',
-			});
-		}
-	} else {
-		openErrorMessage({
-			isOpen: true,
-			message: 'Please refresh the page and try again.',
-			title: 'Failed',
-		});
-	}
-	return { message: res.message, statusCode: result.statusCode };
+  const result = await fetchRegister(form);
+  let res = Utility.getErrorMessage(result, 'register');
+  if (result.statusCode) {
+    if (result.statusCode === 201) {
+      if (isLogmeIn) {
+        await callLoginApi({
+          email: form['email'],
+          password: form['password'],
+        });
+      } else {
+        /**navigate to login page */
+        navigate('/login');
+      }
+    } else {
+      openErrorMessage({
+        isOpen: true,
+        message: `Error : ${result.message}`,
+        title: 'Failed',
+      });
+    }
+  } else {
+    openErrorMessage({
+      isOpen: true,
+      message: 'Please refresh the page and try again.',
+      title: 'Failed',
+    });
+  }
+  return { message: res.message, statusCode: result.statusCode };
 };
 /**
  * login API call
@@ -86,15 +97,15 @@ export const callRegisterApi = async (form: {}, isLogmeIn: boolean) => {
  * @returns - Promise
  */
 const fetchLogin = async (data: {}) => {
-	try {
-		const response = await fetch(
-			AppConstants.apiBase + '/login',
-			requestHeader(data)
-		);
-		return await response.json();
-	} catch (error) {
-		return error;
-	}
+  try {
+    const response = await fetch(
+      AppConstants.apiBase + '/login',
+      requestHeader(data)
+    );
+    return await response.json();
+  } catch (error) {
+    return error;
+  }
 };
 /**
  * Call login API asynchronously
@@ -102,34 +113,30 @@ const fetchLogin = async (data: {}) => {
  * @returns - a Promise
  */
 export const callLoginApi = async (form: {}) => {
-	const result = await fetchLogin(form);
-	if (result.hasOwnProperty('user')) {
-		// openErrorMessage({
-		// 	isOpen: true,
-		// 	timer: true,
-		// 	message: 'You have logged in successfully.',
-		// 	title: 'Success',
-		// 	endTimerRedirectUrl: '/',
-		// });
-		window.location.href = '/';
-		Utility.setToken(result.user.token);
-		const user = {
-			email: result.user.email,
-			password: form['password'],
-			token: result.user.token,
-		};
-		Utility.setUser(user);
-		authStore.set({
-			isAuthenticated: true,
-			user: user,
-		});
-		return result;
-	} else {
-		openErrorMessage({
-			isOpen: true,
-			message: `Error : ${result.message}`,
-			title: 'Failed',
-		});
-		return Utility.getErrorMessage(result, 'product');
-	}
+  const result = await fetchLogin(form);
+  if (result.hasOwnProperty('user')) {
+    Utility.setToken(result.user.token);
+    const result1 = await getProfile();
+    const username = result1['username'];
+    const user = {
+      email: result.user.email,
+      password: form['password'],
+      token: result.user.token,
+      username: username,
+    };
+    Utility.setUser(user);
+    authStore.set({
+      isAuthenticated: true,
+      user: user,
+    });
+    /**navigate to dashboard page*/
+    navigate('/');
+  } else {
+    openErrorMessage({
+      isOpen: true,
+      message: `Error : ${result.message}`,
+      title: 'Failed',
+    });
+    return Utility.getErrorMessage(result, 'product');
+  }
 };

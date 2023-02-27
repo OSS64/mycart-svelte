@@ -4,10 +4,11 @@
   .cardshow {
     display: flex;
   }
-  /* .noData {
+  .noData {
     display: none;
     visibility: hidden;
-  } */
+    align-items: center;
+  }
 }
 
 .product-list-title {

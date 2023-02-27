@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { navigate } from "svelte-routing";
+  import { onMount } from 'svelte';
+  import { navigate } from 'svelte-routing';
   import {
     Button,
     Card,
@@ -12,45 +12,39 @@
     CardTitle,
     Col,
     Row,
-  } from "sveltestrap";
-  import { FreeMode, Navigation, Thumbs } from "swiper";
-  import "swiper/css";
-  import "swiper/css/free-mode";
-  import "swiper/css/navigation";
-  import "swiper/css/thumbs";
-  import { Swiper, SwiperSlide } from "swiper/svelte";
-  import { Utility } from "../../shared/utilities/utility";
-  import { cart } from "../../store/cart.store";
-  import "./swiper.scss";
-  import { getProduct } from "./../../services/products.services";
-  import type { Product } from "../../models/types";
-  import Errormodal from "../../shared/utilities/errormodal.svelte";
-  import Loader from "../../shared/utilities/Loader.svelte";
-  import { classList } from "svelte-body";
-  import { Table } from "sveltestrap";
-  import {
-    Modal,
-    ModalBody,
-    ModalFooter,
-    ModalHeader
   } from 'sveltestrap';
+  import { FreeMode, Navigation, Thumbs } from 'swiper';
+  import 'swiper/css';
+  import 'swiper/css/free-mode';
+  import 'swiper/css/navigation';
+  import 'swiper/css/thumbs';
+  import { Swiper, SwiperSlide } from 'swiper/svelte';
+  import { Utility } from '../../shared/utilities/utility';
+  import { cart } from '../../store/cart.store';
+  import './swiper.scss';
+  import { getProduct } from './../../services/products.services';
+  import type { Product } from '../../models/types';
+  import Loader from '../../shared/utilities/Loader.svelte';
+  import { classList } from 'svelte-body';
+  import { Table } from 'sveltestrap';
+  import { Modal, ModalBody, ModalFooter, ModalHeader } from 'sveltestrap';
   let open = false;
   const toggle = () => (open = !open);
 
   let imgUrl = null;
   let productQuantity = 0;
   let productDetails: Product = null;
-  
+
   /**
    * List of thumbnails used in swiper slide.
    */
   const arr = [
-    "/content/images/item1.jpg",
-    "/content/images/item2.jpg",
-    "/content/images/item3.jpg",
-    "/content/images/item1.jpg",
-    "/content/images/item2.jpg",
-    "/content/images/item3.jpg",
+    '/content/images/item1.jpg',
+    '/content/images/item2.jpg',
+    '/content/images/item3.jpg',
+    '/content/images/item1.jpg',
+    '/content/images/item2.jpg',
+    '/content/images/item3.jpg',
   ];
 
   let thumbsSwiper = null;
@@ -68,18 +62,7 @@
    * Get product id from the browser's url.
    */
   const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get("productId");
-
-  /**
-   * props required to pass in ErrorModal
-   */
-  let displayErrorModal: boolean = false;
-  let errorModalHeader: string = "Product API Response";
-  let errorModalMessage: string;
-
-  let closeErrorModal = () => {
-    displayErrorModal = false;
-  };
+  const productId = urlParams.get('productId');
 
   let receivedResponse = false;
   /**
@@ -95,11 +78,7 @@
      */
 
     let result = await getProduct(productId);
-    if (result.hasOwnProperty("message")) {
-      displayErrorModal = true;
-      errorModalMessage = `Error : ${result.message}`;
-      console.log(errorModalMessage);
-    } else {
+    if (!result.hasOwnProperty('message')) {
       receivedResponse = true;
       result = Utility.updateImageUrl([result]).at(0);
       displayProduct(result);
@@ -144,10 +123,10 @@
    * If product already added to cart, then that quantity display in PDP page.
    */
   function initialisingQty() {
-    productDetails["quantity"] = productDetails.hasOwnProperty("quantity")
-      ? productDetails["quantity"]
+    productDetails['quantity'] = productDetails.hasOwnProperty('quantity')
+      ? productDetails['quantity']
       : 1;
-    productQuantity = productDetails["quantity"];
+    productQuantity = productDetails['quantity'];
   }
 
   /**
@@ -170,7 +149,7 @@
        */
       $cart.forEach(function (prod) {
         if (prod._id == productDetails._id) {
-          prod["quantity"] = productDetails.quantity;
+          prod['quantity'] = productDetails.quantity;
         }
       });
     }
@@ -178,12 +157,12 @@
      * Same as cart.set($cart)
      */
     $cart = $cart;
-    open = !open
+    open = !open;
     /**
      * Set cart store to sessionstorage, so that on page refresh,
      * we can show products added to cart, and cart quantity at navbar.
      */
-    Utility.setSession("cartdata", $cart);
+    Utility.setSession('cartdata', $cart);
   }
 
   /**
@@ -218,50 +197,41 @@
   }
 </script>
 
-<!-- {#if displayErrorModal}
-  <Errormodal
-    header={errorModalHeader}
-    message={errorModalMessage}
-    open={displayErrorModal}
-    on:closeModal={closeErrorModal}
-  />
-{/if} -->
-<svelte:body use:classList={"page-details"} />
+<svelte:body use:classList="{'page-details'}" />
 {#if !receivedResponse}
   <Loader />
 {:else if productDetails?._id}
-
   <div class="px-details">
-    <Row cols={{ md: 1, sm: 1 }}>
+    <Row cols="{{ md: 1, sm: 1 }}">
       <Col lg="5">
         <div class="thumbnailBanner">
           <Swiper
-            spaceBetween={10}
-            navigation={true}
-            thumbs={{ swiper: thumbsSwiper }}
-            modules={[FreeMode, Navigation, Thumbs]}
+            spaceBetween="{10}"
+            navigation="{true}"
+            thumbs="{{ swiper: thumbsSwiper }}"
+            modules="{[FreeMode, Navigation, Thumbs]}"
             class="mySwiper2"
           >
             <SwiperSlide>
-              <img src={imgUrl} alt={productDetails?.features?.modelName} />
+              <img src="{imgUrl}" alt="{productDetails?.features?.modelName}" />
             </SwiperSlide>
           </Swiper>
           <Swiper
-            on:swiper={setThumbsSwiper}
-            spaceBetween={10}
-            slidesPerView={4}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[FreeMode, Navigation, Thumbs]}
+            on:swiper="{setThumbsSwiper}"
+            spaceBetween="{10}"
+            slidesPerView="{4}"
+            freeMode="{true}"
+            watchSlidesProgress="{true}"
+            modules="{[FreeMode, Navigation, Thumbs]}"
             class="mySwiper"
           >
             {#each arr as i}
               <SwiperSlide>
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <img
-                  on:click={() => openThumbnail(i)}
-                  src={i}
-                  alt={productDetails?.features?.modelName}
+                  on:click="{() => openThumbnail(i)}"
+                  src="{i}"
+                  alt="{productDetails?.features?.modelName}"
                 />
               </SwiperSlide>
             {/each}
@@ -348,27 +318,28 @@
                 ></CardText
               >
               Quantity:
-              <Button on:click={() => plusItem()}>+</Button>
+              <Button on:click="{() => plusItem()}">+</Button>
               {productQuantity}
-              <Button on:click={() => minusItem()}>-</Button>
+              <Button on:click="{() => minusItem()}">-</Button>
             </CardBody>
             <CardFooter>
-
-                <Button
-                  on:click={() => addItemToCart()}
-                  >Add to Cart</Button
+              <Button on:click="{() => addItemToCart()}">Add to Cart</Button>
+              <Modal isOpen="{open}" toggle="{toggle}">
+                <ModalHeader toggle="{toggle}"
+                  >1 item added to the cart</ModalHeader
                 >
-                <Modal isOpen={open} {toggle}>
-                  <ModalHeader {toggle}>1 item added to the cart</ModalHeader>
-                  <ModalBody>
-                    {productDetails?.productName}
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="primary" on:click={() => navigate("/cart")}>Proceed to Checkout</Button>
-                    <Button color="secondary" on:click={toggle}>Continue Shopping</Button>
-                  </ModalFooter>
-                </Modal>
-
+                <ModalBody>
+                  {productDetails?.productName}
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" on:click="{() => navigate('/cart')}"
+                    >Proceed to Checkout</Button
+                  >
+                  <Button color="secondary" on:click="{toggle}"
+                    >Continue Shopping</Button
+                  >
+                </ModalFooter>
+              </Modal>
             </CardFooter>
           </Card>
         </div>
@@ -379,11 +350,11 @@
   <div class="noProduct">
     <div class="no-product-inner">
       <h1>No Product Found</h1>
-      <Button on:click={() => navigate("/")}>Go Back</Button>
+      <Button on:click="{() => navigate('/')}">Go Back</Button>
     </div>
   </div>
 {/if}
 
 <style lang="scss">
-  @import "./details.scss";
+  @import './details.scss';
 </style>

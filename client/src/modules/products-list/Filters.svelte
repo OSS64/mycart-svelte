@@ -1,38 +1,36 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from "svelte";
 	export let selectedBrand = [];
 	export let brands = [];
-	export let price = '';
-	export let category = '';
+	export let price = "";
+	export let category = "";
 	export let pricedata = [];
 	const dispatch = createEventDispatcher();
-	$: {
-		console.log('selectedBrand', selectedBrand);
-		console.log('price', price);
-	}
 </script>
 
 <div class="facets">
-	{#if category?.length}
-		<div class="filterHeading">
-			<p>Applied Filter</p>
-		</div>
-		<div class="container">
-			<div class="checkBoxBrand">
-				<label for={category}><b>{category}:</b></label>
-			</div>
-			{#each selectedBrand as el}
-				<div class="checkBoxBrand">
-					<label for={el}>{el}</label>
-				</div>
-			{/each}
-			{#if price && price !== 'All'}
-				<div class="checkBoxBrand">
-					<label for={price}>{price}</label>
-				</div>
+	<div class="filterHeading">
+		<p>Applied Filter</p>
+	</div>
+	<div class="container">
+		<div class="checkBoxBrand">
+			{#if category?.length}
+				<label for={category}><b>Category:{category}</b></label>
+			{:else}
+				<label for={category}><b>Category:All</b></label>
 			{/if}
 		</div>
-	{/if}
+		{#each selectedBrand as el}
+			<div class="checkBoxBrand">
+				<label for={el}>{el}</label>
+			</div>
+		{/each}
+		{#if price && price !== "All"}
+			<div class="checkBoxBrand">
+				<label for={price}>{price}</label>
+			</div>
+		{/if}
+	</div>
 	<div class="filterHeading">
 		<p>Select Brand</p>
 	</div>
@@ -44,7 +42,7 @@
 					type="checkbox"
 					value={el.brand}
 					bind:group={selectedBrand}
-					on:change={() => dispatch('filter')}
+					on:change={() => dispatch("filter")}
 				/>
 				<label for={el.brand}>{el.brand}</label>
 			</div>
@@ -64,7 +62,7 @@
 						id="flexRadioDefault1"
 						bind:group={price}
 						value={el.text}
-						on:change={() => dispatch('filter')}
+						on:change={() => dispatch("filter")}
 					/>
 					<label class="form-check-label" for="flexRadioDefault1">
 						{el.text}
@@ -76,5 +74,5 @@
 </div>
 
 <style lang="scss">
-	@import './filters.scss';
+	@import "./filters.scss";
 </style>

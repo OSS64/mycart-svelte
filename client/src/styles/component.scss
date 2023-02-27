@@ -2,260 +2,271 @@
 Feedback Form
 */
 .page-feedback {
-  .formFeedback {
-    .fd-text {
-      padding-top: 15px;
-      .fd-heading {
-        color: #000000;
-        padding-bottom: 5px;
-        padding-top: 10px;
-        text-align: center;
-      }
-    }
-    .fd-form {
-      background-color: #f9fbfd;
-      padding-top: 20px;
-      height: 92%;
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-      border-radius: 8px;
-      outline: none;
-      border: 2px solid #c4c4c4;
-      .fd-name {
-        width: 90%;
-        padding-left: 10%;
-        padding-top: 15px;
-        .fd-namelabel {
-          margin-right: 10px;
-          display: flex;
-        }
-      }
+	.formFeedback {
+		.fd-text {
+			padding-top: 15px;
+			.fd-heading {
+				color: #000000;
+				padding-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+			}
+		}
+		.fd-form {
+			background-color: #f9fbfd;
+			padding-top: 20px;
+			height: 92%;
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+			border-radius: 8px;
+			outline: none;
+			border: 2px solid #c4c4c4;
+			.fd-name {
+				width: 90%;
+				padding-left: 10%;
+				padding-top: 15px;
+				.fd-namelabel {
+					margin-right: 10px;
+					display: flex;
+				}
+			}
 
-      .fd-email {
-        width: 90%;
-        padding-left: 10%;
-        padding-top: 10px;
-        .fd-emaillabel {
-          margin-right: 10px;
-          display: flex;
-        }
-      }
+			.fd-email {
+				width: 90%;
+				padding-left: 10%;
+				padding-top: 10px;
+				.fd-emaillabel {
+					margin-right: 10px;
+					display: flex;
+				}
+			}
 
-      .fd-textarea {
-        width: 90%;
-        padding-left: 10%;
-        .fd-textarealabel {
-          margin-right: 10px;
-          display: flex;
-        }
-      }
-    }
-  }
+			.fd-textarea {
+				width: 90%;
+				padding-left: 10%;
+				.fd-textarealabel {
+					margin-right: 10px;
+					display: flex;
+				}
+			}
+		}
+	}
 }
 
 /*
 * Sign up page
 */
 .page-signup {
-  .px-form {
-    background-color: #f0f8ff;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-    border-radius: 8px;
-    outline: none;
-    border: 2px solid #c4c4c4;
-    margin: 0 auto 30px;
-    width: 80%;
-    .toast {
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1;
-      background-color: white;
-    }
-    .px-username{
-      width: 90%;
-      padding-left: 10%;
-      padding-top: 0px;
-      margin-bottom: 8px !important;
-      .px-usernamelabel{
-        margin-right: 10px;
-        display: flex;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-      }
-    }
-    .px-confirmpassword{
-      width: 90%;
-      padding-left: 10%;
-      padding-top: 0px;
-      margin-bottom: 8px !important;
-      .px-confirmpasswordlabel{
-        margin-right: 10px;
-        display: flex;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-      }
-    }
-    .px-email {
-      width: 90%;
-      padding-left: 10%;
-      padding-top: 0px;
-      margin-bottom: 8px !important;
-      .px-emaillabel {
-        margin-right: 10px;
-        display: flex;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-      }
-    }
+	.px-form {
+		background-color: #f0f8ff;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+		border-radius: 8px;
+		outline: none;
+		border: 2px solid #c4c4c4;
+		margin: 0 auto 30px;
+		width: 80%;
+		.toast {
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 1;
+			background-color: white;
+		}
+		.px-username {
+			width: 90%;
+			padding-left: 10%;
+			padding-top: 0px;
+			margin-bottom: 8px !important;
+			.px-usernamelabel {
+				margin-right: 10px;
+				display: flex;
+				padding-bottom: 0px;
+				margin-bottom: 0px;
+			}
+		}
+		.px-confirmpassword {
+			width: 90%;
+			padding-left: 10%;
+			padding-top: 0px;
+			margin-bottom: 8px !important;
+			.px-confirmpasswordlabel {
+				margin-right: 10px;
+				display: flex;
+				padding-bottom: 0px;
+				margin-bottom: 0px;
+			}
+		}
+		.px-email {
+			width: 90%;
+			padding-left: 10%;
+			padding-top: 0px;
+			margin-bottom: 8px !important;
+			.px-emaillabel {
+				margin-right: 10px;
+				display: flex;
+				padding-bottom: 0px;
+				margin-bottom: 0px;
+			}
+		}
 
-    .px-password {
-      width: 90%;
-      padding-left: 10%;
-      margin-bottom: 8px !important;
-      .px-passwordlabel {
-        margin-right: 10px;
-        display: flex;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-      }
-    }
+		.px-password {
+			width: 90%;
+			padding-left: 10%;
+			margin-bottom: 8px !important;
+			.px-passwordlabel {
+				margin-right: 10px;
+				display: flex;
+				padding-bottom: 0px;
+				margin-bottom: 0px;
+			}
+		}
 
-    .px-age {
-      width: 90%;
-      padding-left: 10%;
-      margin-bottom: 8px !important;
-      .px-agelabel {
-        margin-right: 10px;
-        display: flex;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-      }
-    }
+		.px-age {
+			width: 90%;
+			padding-left: 10%;
+			margin-bottom: 8px !important;
+			.px-agelabel {
+				margin-right: 10px;
+				display: flex;
+				padding-bottom: 0px;
+				margin-bottom: 0px;
+			}
+		}
 
-    .px-textarea {
-      width: 90%;
-      padding-left: 10%;
-      margin-bottom: 8px !important;
-      .px-textarealabel {
-        margin-right: 8px;
-        display: flex;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
-      }
-    }
+		.px-textarea {
+			width: 90%;
+			padding-left: 10%;
+			margin-bottom: 8px !important;
+			.px-textarealabel {
+				margin-right: 8px;
+				display: flex;
+				padding-bottom: 0px;
+				margin-bottom: 0px;
+			}
+		}
 
-    .px-gender {
-      width: 30%;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px;
-      height: 20px;
-      display: flex;
-      .px-genderlabel1 {
-        margin-left: 10px;
-      }
-      .px-genderlabel2 {
-        margin-left: 20px;
-      }
-    }
+		.px-gender {
+			width: 30%;
+			margin-bottom: 0px !important;
+			padding-bottom: 0px;
+			height: 20px;
+			display: flex;
+			.px-genderlabel1 {
+				margin-left: 10px;
+			}
+			.px-genderlabel2 {
+				margin-left: 20px;
+			}
+		}
 
-    .px-checkmeout {
-      width: 70%;
-      padding-left: 10%;
-      padding-bottom: 0px;
-      display: flex;
-      margin-bottom: 0px !important;
-      height: 25px;
-      .px-checkoutlabel {
-        margin-right: 10px;
-        display: flex;
-      }
-    }
-
-    .px-btn-register {
-      margin-left: 42%;
-      margin-top: 5px;
-    }
-  }
-  .px-heading {
-    padding-top: 25px;
-    .px-signup {
-      color: rgb(216, 210, 210);
-      padding-bottom: 5px;
-      padding-top: 15px;
-      text-align: center;
-    }
-  }
+		.px-checkmeout {
+			width: 70%;
+			padding-left: 10%;
+			padding-bottom: 0px;
+			display: flex;
+			margin-bottom: 0px !important;
+			height: 25px;
+			.px-checkoutlabel {
+				margin-right: 10px;
+				display: flex;
+			}
+		}
+		.px-signmeout {
+			width: 70%;
+			padding-left: 10%;
+			padding-bottom: 0px;
+			display: flex;
+			margin-bottom: 0px !important;
+			height: 25px;
+			.px-signmeoutlabel {
+				margin-right: 10px;
+				display: flex;
+			}
+		}
+		.px-btn-register {
+			margin-left: 42%;
+			margin-top: 5px;
+		}
+	}
+	.px-heading {
+		padding-top: 25px;
+		.px-signup {
+			color: rgb(216, 210, 210);
+			padding-bottom: 5px;
+			padding-top: 15px;
+			text-align: center;
+		}
+	}
 }
 
 .page-list {
-  /*
+	/*
   card component
   */
-  .card-cls {
-    width: 300px;
-    margin-left: 50px;
-    #card-head {
-      width: 299px;
-      transform: translate(-4%);
-      text-align: center;
-    }
-    .card-img {
-      height: 120px;
-      width: 120px;
-    }
-    .px-card-subtitle {
-      margin-bottom: 10px;
-    }
-    .card-text {
-      padding-top: 10px;
-      height: 190px;
-      font-size: medium;
-    }
-  }
-  /*
+	.card-cls {
+		width: 300px;
+		margin-left: 50px;
+		#card-head {
+			width: 299px;
+			transform: translate(-4%);
+			text-align: center;
+		}
+		.card-img {
+			height: 120px;
+			width: 120px;
+		}
+		.px-card-subtitle {
+			margin-bottom: 10px;
+		}
+		.card-text {
+			padding-top: 10px;
+			height: 190px;
+			font-size: medium;
+		}
+	}
+	/*
   Product List Page
   */
-  .bigContainer {
-    #card-cls .card-body {
-      text-align: center;
-    }
-  }
-  .light-pagination-nav .option {
-    &.disabled,
-    &.ellipsis,
-    &.active {
-      pointer-events: none;
-    }
-  }
+	.bigContainer {
+		#card-cls .card-body {
+			text-align: center;
+		}
+	}
+	.light-pagination-nav .option {
+		&.disabled,
+		&.ellipsis,
+		&.active {
+			pointer-events: none;
+		}
+	}
 }
 
 /*
 Login Page
 */
 .page-login {
-  .px-page {
-    .form {
-      min-width: 450px;
-      background: #fff;
-      box-shadow: 0 0 10px rgb(0, 0, 0);
-      text-align: center;
-      padding: 50px 20px;
-      border-radius: 10px;
-    }
-  }
+	.px-page {
+		.form {
+			min-width: 450px;
+			background: #fff;
+			box-shadow: 0 0 10px rgb(0, 0, 0);
+			text-align: center;
+			padding: 50px 20px;
+			border-radius: 10px;
+		}
+	}
 }
 /*
 Product-details Page
 */
-.page-details{
-  .px-details{
-    .descriptionDetails{
-      .card-subtitle{
-         font-size: 20px;
-      }
-    }
-  }
+.page-details {
+	.px-details {
+		.descriptionDetails {
+			.card-subtitle {
+				font-size: 20px;
+			}
+		}
+	}
 }

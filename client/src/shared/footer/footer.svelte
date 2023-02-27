@@ -91,7 +91,7 @@
 	<!-- Grid container -->
 	<!-- Copyright -->
 	<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-		<span>MyCart.com &#169; 2022 | developed by Cognizant</span>
+		<span>MyCart.com &#169; 2023 | Developed by Cognizant</span>
 	</div>
 	<!-- Copyright -->
 </footer>

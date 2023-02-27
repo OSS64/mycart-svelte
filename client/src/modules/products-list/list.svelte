@@ -11,7 +11,7 @@
 	import type { Product } from '../../models/types';
 	import Pagination from './pagination/Pagination.svelte';
 	import { classList } from 'svelte-body';
-	let loading = false;
+	$: loading = true;
 	let error = false;
 	let brand = [];
 	let pricedata = [];
@@ -39,28 +39,33 @@
 		if (result.hasOwnProperty('message')) {
 			error = true;
 		} else {
-			loading = false;
 			total = result['prodcutsCount'];
 			result = Utility.updateImageUrl(result['products'] as Product[]);
 			getBrandsAndProducts(result);
 		}
+		loading = false;
 	};
+	let currentPage = 1;
+	let pageSize = 5;
 	const pageChange = async (event: {
 		detail: { currentPage: number; pageSize: number };
 	}) => {
+		loading = true;
 		let result = await getProductList(
 			event.detail.currentPage,
 			event.detail.pageSize,
 			category
 		);
+		currentPage = event.detail.currentPage;
+		pageSize = event.detail.pageSize;
 		if (result.hasOwnProperty('message')) {
 			error = true;
 		} else {
-			loading = false;
 			total = result['prodcutsCount'];
 			result = Utility.updateImageUrl(result['products'] as Product[]);
 			getBrandsAndProducts(result);
 		}
+		loading = false;
 	};
 	/**
 	 * Populates products to be rendered in DOM.
@@ -128,12 +133,10 @@
 	 * Populates price facets from svelte priceStore.
 	 */
 	export async function getPrice() {
-		loading = true;
 		error = false;
 		try {
 			let prices = priceStore;
 			pricedata = prices;
-			loading = false;
 		} catch (error) {
 			return error;
 		}
@@ -157,8 +160,9 @@
 		</div>
 	</div>
 {:else if categoryHasData}
-	<div class="row">
+	<div class="text-center">
 		<h3 class="product-list-title">Product List</h3>
+		<p class="sub-txt">Showing {renderData.length} of {total} products</p>
 	</div>
 	<div class="bigContainer">
 		<div class="leftpanel">
@@ -183,8 +187,18 @@
 							<Cards product={el} />
 						{/each}
 					</div>
+					<div class="noData" bind:this={noDataShown}>
+						<img src="/content/images/no data.jpg" alt="No data found" />
+					</div>
 				</div>
-				<Pagination {total} on:setPage={pageChange} />
+				{#if renderData.length}
+					<Pagination
+						{total}
+						on:setPage={pageChange}
+						{currentPage}
+						{pageSize}
+					/>
+				{/if}
 			{/if}
 		</div>
 	</div>
@@ -199,4 +213,7 @@
 
 <style lang="scss">
 	@import './list.scss';
+	.sub-txt {
+		margin-bottom: 2rem;
+	}
 </style>

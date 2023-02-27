@@ -6,7 +6,6 @@
 	import Parallax from './parallax-effect.svelte';
 	import { categoryStore } from './../../store/product.store';
 	import { getCategories } from '../../services/products.services';
-	import Errormodal from '../../shared/utilities/errormodal.svelte';
 	import { Utility } from '../../shared/utilities/utility';
 
 	let categoryList: string[] = [];
@@ -14,16 +13,7 @@
 	let showAlert = false;
 	let message = '';
 
-	/**
-	 * props required to pass in ErrorModal
-	 */
-	let displayErrorModal: boolean = false;
-	let errorModalHeader: string = 'Category API Response';
-	let errorModalMessage: string;
 
-	let closeErrorModal = () => {
-		displayErrorModal = false;
-	};
 
 	/**
 	 * Execute as soon as component's markup mount on DOM.
@@ -39,10 +29,7 @@
 		 */
 		if (!$categoryStore.length) {
 			let result = await getCategories();
-			if (result.hasOwnProperty('message')) {
-				displayErrorModal = true;
-				errorModalMessage = `Error : ${result.message}`;
-			} else {
+			if (!result.hasOwnProperty('message')) {
 				categoryList = result;
 			}
 		} else {

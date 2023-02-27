@@ -78,11 +78,11 @@ button {
 /*
 Navbar component
 */
-.app-navbar {
+/* .app-navbar {
   li.nav-item.mlmr-3:not(:last-child) {
     margin: 0 15px;
   }
-}
+} */
 .stickyAtTop {
   position: -webkit-sticky; /* Safari */
   position: sticky;
@@ -91,4 +91,8 @@ Navbar component
 }
 .confirm-dialog {
   position: fixed !important;
+}
+.container-fluid{
+  margin:0;
+  padding: 0;
 }

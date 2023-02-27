@@ -1,7 +1,7 @@
 export const AppConstants = {
-	baseApi: 'http://127.0.0.1:5000',
+	baseApi: 'http://localhost:3000',
 	apiBase: 'http://127.0.0.1:5100',
-	amazonNoImage: 'https://m.media-amazon.com/images/I/01RPy1SfeqL._SS500_.gif',
+	amazonNoImage: 'https://via.placeholder.com/600?text=No+Image',
 	formatterConfig: {
 		locale: 'en-IN',
 		style: 'currency',
