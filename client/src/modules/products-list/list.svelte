@@ -21,8 +21,9 @@
 		brand: [],
 	};
 	let price = 'All';
-	let noDataShown: any;
 	let total: number;
+	let currentPage = 1;
+	let pageSize = 4;
 	/**
 	 * Used to check whether used category has products or not.
 	 * if there is no product, then no product text will display.
@@ -35,7 +36,7 @@
 	export const callOnLoad = async () => {
 		loading = true;
 		error = false;
-		let result = await getProductList(1, 5, category || '');
+		let result = await getProductList(currentPage, pageSize, category || '');
 		if (result.hasOwnProperty('message')) {
 			error = true;
 		} else {
@@ -45,8 +46,6 @@
 		}
 		loading = false;
 	};
-	let currentPage = 1;
-	let pageSize = 5;
 	const pageChange = async (event: {
 		detail: { currentPage: number; pageSize: number };
 	}) => {
@@ -121,13 +120,6 @@
 		/**
 		 * manage to display "No data" based on filter from facets.
 		 */
-		if (renderData.length === 0) {
-			noDataShown.style.visibility = 'visible';
-			noDataShown.style.display = 'block';
-		} else {
-			noDataShown.style.visibility = 'hidden';
-			noDataShown.style.display = 'none';
-		}
 	}
 	/**
 	 * Populates price facets from svelte priceStore.
@@ -182,13 +174,10 @@
 				Error: {error}
 			{:else}
 				<div class="cardshow">
-					<div class="row">
+					<div class="card-container">
 						{#each renderData as el}
 							<Cards product={el} />
 						{/each}
-					</div>
-					<div class="noData" bind:this={noDataShown}>
-						<img src="/content/images/no data.jpg" alt="No data found" />
 					</div>
 				</div>
 				{#if renderData.length}
@@ -199,6 +188,11 @@
 						{pageSize}
 					/>
 				{/if}
+			{/if}
+			{#if !renderData.length}
+				<div class="noData">
+					<img src="/content/images/no data.jpg" alt="No data found" />
+				</div>
 			{/if}
 		</div>
 	</div>
@@ -213,7 +207,9 @@
 
 <style lang="scss">
 	@import './list.scss';
-	.sub-txt {
-		margin-bottom: 2rem;
+	.noData {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 </style>

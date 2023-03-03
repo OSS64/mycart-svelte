@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Col, Row } from "sveltestrap";
-  import { Router, Route, Link } from "svelte-routing";
-  import Feedback from "../contact/feedback.svelte";
+  import { Col } from 'sveltestrap';
+  import { Router, Route, Link } from 'svelte-routing';
+  import Feedback from '../contact/feedback.svelte';
 </script>
 
 <div class="contact-body">
@@ -16,8 +16,12 @@
       </p>
     </div>
     <div class="feedbackForm">
-      <Row>
-        <Col lg={{ size: 6, order: 2, offset: 3 }}>
+      <div>
+        <Col
+          lg="{{ size: 6, order: 2, offset: 3 }}"
+          sm="{{ size: 8, offset: 2 }}"
+          class="px-2"
+        >
           <Router>
             <Link to="feedback"
               ><h5>
@@ -27,11 +31,11 @@
             <Route path="feedback"><Feedback /></Route>
           </Router>
         </Col>
-      </Row>
+      </div>
     </div>
   </div>
 </div>
 
 <style lang="scss">
-  @import "./contact.scss";
+  @import './contact.scss';
 </style>

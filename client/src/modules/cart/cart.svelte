@@ -4,16 +4,19 @@
     maxquantity,
     minquantity,
     totalPrice,
-  } from "../../store/cart.store";
-  import { onMount, onDestroy } from "svelte";
-  import { Utility } from "../../shared/utilities/utility";
-  import Coupon from "../coupon/coupon.svelte";
-  import { fade, fly } from "svelte/transition";
-  import { couponStore } from "./../../store/coupon.store";
-  import { Router, Link } from "svelte-routing";
+  } from '../../store/cart.store';
+  import { onMount, onDestroy } from 'svelte';
+  import { Utility } from '../../shared/utilities/utility';
+  import Coupon from '../coupon/coupon.svelte';
+  import { fade, fly } from 'svelte/transition';
+  import { couponStore } from './../../store/coupon.store';
+  import { Router, Link } from 'svelte-routing';
+  import { classList } from 'svelte-body';
+  import NoImage from '../../shared/utilities/noImage.svelte';
+  import type { Product } from '../../models/types';
 
   let payableAmount = 0;
-  let selectedCoupon = "";
+  let selectedCoupon = '';
   let codeList = [];
   let validCoupon = null;
   let totalPriceAfterApplyingCoupon = 0;
@@ -78,13 +81,13 @@
   function plusItem(product: { _id: any }) {
     for (let item of $cart) {
       if (item._id === product._id) {
-        if (item["quantity"] < $maxquantity) {
-          item["quantity"] += 1;
+        if (item['quantity'] < $maxquantity) {
+          item['quantity'] += 1;
         }
       }
     }
     cart.set($cart);
-    Utility.setSession("cartdata", $cart);
+    Utility.setSession('cartdata', $cart);
   }
 
   /**
@@ -95,13 +98,13 @@
   function minusItem(product: { _id: any }) {
     for (let item of $cart) {
       if (item._id === product._id) {
-        if (item["quantity"] > $minquantity) {
-          item["quantity"] -= 1;
+        if (item['quantity'] > $minquantity) {
+          item['quantity'] -= 1;
         }
       }
     }
     cart.set($cart);
-    Utility.setSession("cartdata", $cart);
+    Utility.setSession('cartdata', $cart);
   }
 
   /**
@@ -113,16 +116,19 @@
       return item._id !== id;
     });
     cart.set($cart);
-    Utility.setSession("cartdata", $cart);
+    Utility.setSession('cartdata', $cart);
   }
+  const hasNoImage = (prod: Product) => {
+    return prod.imageUrl.indexOf('placeholder') >= 0;
+  };
 </script>
 
 <!-- Update page title of the Cart Page -->
 <svelte:head>
   <title>cart items</title>
 </svelte:head>
-
-<div class="shopping-cart">
+<svelte:body use:classList="{'page-cart'}" />
+<div class="shopping-cart container">
   {#if $cart.length === 0}
     <div class="message">
       <p>No items in cart yet.</p>
@@ -130,21 +136,27 @@
   {:else}
     {#each $cart as item}
       <div transition:fly class="shadow cart-item">
-        <div class="row">
+        <div class="row cart-row">
           <div class="image col-lg-3">
             <Router>
-              <Link to={"/details?productId=" + item?._id}>
-                <img width="200" src={item.imageUrl} alt="laptop" />
+              <Link
+                to="{'/details?productId=' + item?._id}"
+                class="{hasNoImage(item) ? 'noimage' : ''}"
+              >
+                {#if hasNoImage(item)}
+                  <NoImage height="{200}" margin="{'0'}" />
+                {:else}
+                  <img width="200" src="{item.imageUrl}" alt="laptop" />
+                {/if}
               </Link>
             </Router>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 details">
             <div class="details">
-             
-              <span  class="cart-item-brand">{item.features.brand}</span>
+              <span class="cart-item-brand">{item.features.brand}</span>
               <p class="cart-item-model">
                 <Router>
-                  <Link to={"/details?productId=" + item?._id}>
+                  <Link to="{'/details?productId=' + item?._id}">
                     {item.features.modelName}
                   </Link>
                 </Router>
@@ -153,35 +165,38 @@
                 {item.shortDescription}
               </p>
             </div>
-            <p class="cart-item-price">Price: {Utility.formatNumber.format(
-              Number(item.price.toString().replaceAll(",", "")) )}</p>
+            <p class="cart-item-price mb-0">
+              Price: {Utility.formatNumber.format(
+                Number(item.price.toString().replaceAll(',', ''))
+              )}
+            </p>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 qty">
             <div class="price">
               <div class="buttons">
                 <button
                   class="plusbtn btn btn-secondary"
-                  on:click={() => plusItem(item)}
+                  on:click="{() => plusItem(item)}"
                 >
                   +
                 </button>
                 <p>{item.quantity}</p>
                 <button
                   class="btn btn-secondary"
-                  on:click={() => minusItem(item)}
+                  on:click="{() => minusItem(item)}"
                 >
                   -
                 </button>
                 <button
                   class="btn btn-danger"
-                  on:click={() => deleteItem(item._id)}
+                  on:click="{() => deleteItem(item._id)}"
                 >
                   Delete
                 </button>
               </div>
               <p>
                 SubTotal : {Utility.formatNumber.format(
-                  Number(item.price.toString().replaceAll(",", "")) *
+                  Number(item.price.toString().replaceAll(',', '')) *
                     item.quantity
                 )}
               </p>
@@ -204,12 +219,12 @@
       {:else if selectedCoupon}
         <span class="discount" transition:fade> Invalid Coupon</span>
       {:else}
-        <span class="discount" />
+        <span class="discount"></span>
       {/if}
     </div>
     <div class="btns">
       <div class="coupon">
-        <Coupon on:applycoupon={applyCoupon} />
+        <Coupon on:applycoupon="{applyCoupon}" />
       </div>
       <button class="btn btn-primary">Checkout</button>
     </div>
@@ -217,5 +232,5 @@
 </div>
 
 <style lang="scss">
-  @import "./cart.scss";
+  @import './cart.scss';
 </style>

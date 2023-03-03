@@ -28,6 +28,7 @@
   import { classList } from 'svelte-body';
   import { Table } from 'sveltestrap';
   import { Modal, ModalBody, ModalFooter, ModalHeader } from 'sveltestrap';
+  import NoImage from '../../shared/utilities/noImage.svelte';
   let open = false;
   const toggle = () => (open = !open);
 
@@ -43,8 +44,6 @@
     '/content/images/item2.jpg',
     '/content/images/item3.jpg',
     '/content/images/item1.jpg',
-    '/content/images/item2.jpg',
-    '/content/images/item3.jpg',
   ];
 
   let thumbsSwiper = null;
@@ -195,13 +194,16 @@
   function openThumbnail(imageName: string) {
     imgUrl = imageName;
   }
+  const hasNoImage = (url: string) => {
+    return url.indexOf('placeholder') >= 0;
+  };
 </script>
 
 <svelte:body use:classList="{'page-details'}" />
 {#if !receivedResponse}
   <Loader />
 {:else if productDetails?._id}
-  <div class="px-details">
+  <div class="px-details container">
     <Row cols="{{ md: 1, sm: 1 }}">
       <Col lg="5">
         <div class="thumbnailBanner">
@@ -213,7 +215,14 @@
             class="mySwiper2"
           >
             <SwiperSlide>
-              <img src="{imgUrl}" alt="{productDetails?.features?.modelName}" />
+              {#if hasNoImage(imgUrl)}
+                <NoImage height="{300}" margin="{'0'}" width="{'100%'}" />
+              {:else}
+                <img
+                  src="{imgUrl}"
+                  alt="{productDetails?.features?.modelName}"
+                />
+              {/if}
             </SwiperSlide>
           </Swiper>
           <Swiper
@@ -228,11 +237,27 @@
             {#each arr as i}
               <SwiperSlide>
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <img
-                  on:click="{() => openThumbnail(i)}"
-                  src="{i}"
-                  alt="{productDetails?.features?.modelName}"
-                />
+                {#if hasNoImage(i)}
+                  <a
+                    href="/"
+                    on:click|preventDefault="{() => openThumbnail(i)}"
+                    class="{hasNoImage(i) ? 'noimage' : ''}"
+                    style="display: contents;"
+                  >
+                    <NoImage
+                      height="{85}"
+                      margin="{'0'}"
+                      width="{'100%'}"
+                      fontsize="{'1rem'}"
+                    />
+                  </a>
+                {:else}
+                  <img
+                    on:click="{() => openThumbnail(i)}"
+                    src="{i}"
+                    alt="{productDetails?.features?.modelName}"
+                  />
+                {/if}
               </SwiperSlide>
             {/each}
           </Swiper>

@@ -1,33 +1,36 @@
 .bigContainer {
-  display: grid;
-  grid-template-columns: 20% 80%;
-  .cardshow {
-    display: flex;
-  }
-  .noData {
-    display: none;
-    visibility: hidden;
-    align-items: center;
-  }
+	display: grid;
+	grid-template-columns: 20% 80%;
+
+	.cardshow {
+		display: flex;
+	}
 }
 
 .product-list-title {
-  color: grey;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  text-align: center;
+	color: grey;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.sub-txt {
+	margin-bottom: 2rem;
+}
+.no_data_image {
+	padding-left: 65%;
 }
 
 .noProduct {
-  min-height: 450px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .no-product-inner {
-    text-align: center;
-    h1 {
-      font-size: 19px;
-      font-weight: bold;
-    }
-  }
+	min-height: 450px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.no-product-inner {
+		text-align: center;
+		h1 {
+			font-size: 19px;
+			font-weight: bold;
+		}
+	}
 }

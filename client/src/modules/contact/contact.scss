@@ -1,5 +1,5 @@
 .contact-body {
-  background-image: url("./../content/images/contact.png");
+  background-image: url('./../content/images/contact.png');
   height: 100%;
   width: 100%;
   background-position: center;
@@ -32,6 +32,9 @@
         box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
         border-radius: 8px;
         text-align: center;
+        @media (max-width: 576px) {
+          font-size: 1rem;
+        }
       }
     }
   }

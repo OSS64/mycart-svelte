@@ -3,10 +3,10 @@
   grid-template-columns: repeat(1);
   justify-content: center;
   gap: 25px;
-  margin: 30px 20px;
+  margin: 20px auto;
   .cart-item {
-    padding: 20px;
-    margin: 20px 40px;
+    padding: 10px;
+    margin: 2px 4px;
     .details {
       display: flex;
       flex-direction: column;
@@ -27,7 +27,7 @@
       .cart-item-desc {
         font-size: medium;
         color: #000000;
-        text-align: justify;
+        /* text-align: justify; */
       }
     }
     .price {
@@ -48,7 +48,7 @@
     color: #000000;
     text-align: right;
     font-weight: bold;
-    margin: 0 40px 0px 10px;
+    /* margin: 0 40px 0px 10px; */
     .discount {
       font-size: 12px;
       font-style: italic;
@@ -59,7 +59,7 @@
     display: flex;
     gap: 0px 10px;
     justify-content: right;
-    margin: 10px 40px 0px 10px;
+    /* margin: 10px 40px 0px 10px; */
     .coupon {
       display: inline-block;
     }
@@ -69,9 +69,8 @@
     margin: 150px 0;
     font-weight: bold;
   }
-  .cart-item-price{
+  .cart-item-price {
     color: #000000;
     font-weight: bold;
   }
-  
 }
